@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weason.library.dao.BookUserDao">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.BookUser">
+        <id  column="userId"  property="userId" jdbcType="INTEGER"/>
+        <result column="user_account"  property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="recommendUserId" property="recommendUserId" jdbcType="INTEGER"/>
+        <result column="recommendDateTime" property="recommendDateTime" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="VARCHAR"/>
+        <result column="qq_account" property="qqAccount" jdbcType="VARCHAR"/>
+        <result column="webchat_account" property="webchatAccount" jdbcType="VARCHAR"/>
+        <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
+        <result column="point" property="point" jdbcType="INTEGER"/>
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="queryBookUsers" resultMap="BaseResultMap"  >
+        select * FROM  library.book_user;
+
+    </select>
+</mapper>
