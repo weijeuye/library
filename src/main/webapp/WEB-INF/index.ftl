@@ -20,7 +20,7 @@
         <a href="#">我的任务</a> |
         <a href="#">我的消息</a>
     </p>
-	<p>操作员：<span>${(user.userName)!""}</span> / <span>${(user.realName)!""}</span>　[<a id="reLogin" class="B" href="#">重登陆</a>]　[<a class="B" href="">退出系统</a>]</p>
+	<p>操作员：<span>${(user.userName)!""}</span> / <span>${(user.realName)!""}</span>　[<a id="reLogin" class="B" href="#">重登陆</a>]　[<a class="B" href="/library/loginout.do" type="post">退出系统</a>]</p>
 </div><!-- //顶部导航 -->
 
 <!-- 边栏\\ -->

@@ -19,7 +19,7 @@ http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 >
 
-	<description>webTesy01 MVC配置</description>
+	<description>library MVC配置</description>
 	
 	<!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
 	<mvc:annotation-driven /> 

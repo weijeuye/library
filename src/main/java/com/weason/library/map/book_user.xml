@@ -28,4 +28,11 @@
         select * FROM  library.book_user;
 
     </select>
+
+    <select id="findBookUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * FROM  library.book_user b
+        WHERE b.user_account=#{userName,jdbcType=VARCHAR}
+
+        and  b.user_password=#{password,jdbcType=VARCHAR}
+    </select>
 </mapper>

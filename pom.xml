@@ -2,11 +2,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.weason</groupId>
-  <artifactId>webTest01</artifactId>
+  <artifactId>library</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
 
-  <name>webTest01 Maven Webapp</name>
+  <name>library Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -330,7 +330,7 @@
   </dependencies>
 
     <build>
-      <finalName>webTest01</finalName>
+      <finalName>library</finalName>
       <resources>
         <resource>
           <directory>src/main/config</directory>
