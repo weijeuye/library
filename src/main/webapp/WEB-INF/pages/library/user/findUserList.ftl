@@ -18,31 +18,30 @@
     <table class="s_table">
         <tbody>
             <tr>
-                <td class="s_label">字典名称：</td>
-                <td class="w18"><input type="text" name="dictName" value="${dictName!''}"></td>
-                <td class="s_label">字典定义名称：</td>
-                <td class="w18"><input type="text" name="dictDefName" value="${dictDefName!''}"></td>
-                <td class="s_label">字典类型：</td>
-                <#--<td class="w18">
-                	<select name="dictType">
-					  	<option value="" <#if dictType == ''>selected</#if> >不限</option>
-	                    <option value="DICT_TYPE_STATIC" <#if dictType == 'DICT_TYPE_STATIC'>selected</#if> >静态字典</option>
-	                    <option value="DICT_TYPE_BUSINESS" <#if dictType == 'DICT_TYPE_BUSINESS'>selected</#if> >业务字典</option>
-	                </select>
-                </td>-->
+                <td class="s_label">账号</td>
+                <td class="w18"><input type="text" name="userAccount" value="${queryParam.userAccount!''}"></td>
+                <td class="s_label">用户名称</td>
+                <td class="w18"><input type="text" name="userName" value="${queryParam.userName!''}"></td>
+                <td class="s_label">电话：</td>
+                <td class="w18"><input type="text" name="telephone" value="${queryParam.telephone!''}"></td>
             	<td class="s_label"></td>
               </tr>
               <tr>
-              	<td class="s_label">字典状态：</td>
-                <#--<td class="w18">
-	                <select name="cancelFlag">
-					  	<option value="" <#if cancelFlag == ''>selected</#if> >不限</option>
-	                    <option value="Y" <#if cancelFlag == 'Y'>selected</#if> >有效</option>
-	                    <option value="N" <#if cancelFlag == 'N'>selected</#if> >无效</option>
+              	<td class="s_label">性别：</td>
+                <td class="w18">
+	                <select name="gender">
+						<#if queryParam.gender??>
+
+                            <option value="" <#if queryParam.gender == "" >selected</#if> >不限</option>
+                            <option value="m" <#if queryParam.gender == "m">selected</#if> >男</option>
+                            <option value="f" <#if queryParam.gender == "f">selected</#if> >女</option>
+							<#else >
+                                <option value="" selected>不限</option>
+                                <option value="m"  >男</option>
+                                <option value="f" >女</option>
+						</#if>
 	                </select>
-                </td>-->
-                <td class="s_label">字典定义名称ID：</td>
-               <#-- <td class="w18"><input type="text" name="dictDefId" value="${dictDefId!''}"></td>-->
+                </td>
                 <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
                 <td></td>
                 <td></td>
@@ -59,24 +58,27 @@
 	<table class="p_table table_center">
         <thead>
             <tr>
-            	<th>字典定义名称ID</th>
-                <th>字典定义名称</th>
-            	<th>字典名称ID</th>
-                <th>字典名称</th>
-                <th>是否可补充</th>
-                <th>字典类型</th>
-                <th>状态</th>
-                <th>操作</th>
+            	<th>用户ID</th>
+                <th>账号</th>
+            	<th>姓名</th>
+                <th>性别</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>地址</th>
+                <th>出生日期</th>
+                <th>qq号</th>
+                <th>微信号</th>
+                <th>身份证</th>
+                <th>推荐人</th>
+                <th>是否有效</th>
             </tr>
         </thead>
         <tbody>
-			<#list pageParam.items as bookUserArrayList>
+			<#list bookUsers as bookUserArrayList>
 				<tr>
 					<td>${bookUserArrayList.userId!''} </td>
 					<td>${bookUserArrayList.userAccount!''} </td>
 					<td>${bookUserArrayList.userName!''} </td>
-					<td>${bookUserArrayList.gender!''} </td>
-
 					<td>
 						<#if bookUserArrayList.gender == 'm'>
 							<span style="color:green" class="cancelProp">男</span>
@@ -84,6 +86,22 @@
 							<span style="color:red" class="cancelProp">女</span>
 						</#if> 
 					</td>
+                    <td>${bookUserArrayList.telephone!''} </td>
+                    <td>${bookUserArrayList.email!''} </td>
+                    <td>${bookUserArrayList.address!''} </td>
+                    <td>${bookUserArrayList.birthday?string("yyyy-MM-dd")} </td>
+                    <td>${bookUserArrayList.qqAccount!''} </td>
+                    <td>${bookUserArrayList.webchatAccount!''} </td>
+                    <td>${bookUserArrayList.idNumber!''} </td>
+                    <td>${bookUserArrayList.recommendUserId!''} </td>
+                    <td>
+						<#if bookUserArrayList.isValid == 'y'>
+                            <span style="color:green" class="cancelProp">有效</span>
+						<#else>
+                            <span style="color:red" class="cancelProp">无效</span>
+						</#if>
+					</td>
+
 					<#--<td class="oper">
 						<a class="editDict" href="javascript:;" data="${bizDictExtend.dictId!''}" data2="${bizDictExtend.dictDefName!''}" >编辑</a>
 						<#if bizDictExtend.dictType == 'DICT_TYPE_BUSINESS' >

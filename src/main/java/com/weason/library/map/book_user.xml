@@ -28,6 +28,19 @@
         <include refid="basic.pageSearchHead"/>
         select * FROM  library.book_user bu where
         bu.is_valid=#{isvalid,jdbcType=VARCHAR}
+        <if test="userAccount !=null and userAccount !='' " >
+            and bu.user_account =#{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="userName !=null and userName !='' ">
+            and bu.user_name  like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="telephone !=null and telephone !='' ">
+            and bu.telephone =#{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="gender !=null and gender !='' ">
+            and bu.gender =#{gender,jdbcType=VARCHAR}
+        </if>
+
         <include refid="basic.pageSearchFoot"/>
     </select>
 
@@ -40,6 +53,18 @@
 
     <select id="findBookUsersCount" resultType="java.lang.Integer" >
         select count(*) FROM  library.book_user bu WHERE
-        bu.is_valid=#{isvalid,jdbcType=VARCHAR};
+        bu.is_valid=#{isvalid,jdbcType=VARCHAR}
+        <if test="userAccount !=null and userAccount !='' " >
+            and bu.user_account =#{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="userName !=null and userName !='' ">
+            and bu.user_name like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="telephone !=null and telephone !='' ">
+            and bu.telephone =#{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="gender !=null and gender !='' ">
+            and bu.gender =#{gender,jdbcType=VARCHAR}
+        </if>
     </select>
 </mapper>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 @Controller
 @RequestMapping("/user")
@@ -24,9 +25,16 @@ public class UserAction {
     BookUserService bookUserService;
 
     @RequestMapping("/findUsers")
-    public Object queryReaders(Model model, HttpServletRequest request, HttpServletResponse response,Integer page){
+    public Object queryReaders(Model model, HttpServletRequest request, HttpServletResponse response,Integer page,BookUser queryParam){
 
         Map<String,Object> parameters=new HashMap<String,Object>();
+        if(queryParam!=null ){
+            parameters.put("userAccount",queryParam.getUserAccount());
+            parameters.put("userName",queryParam.getUserName());
+            parameters.put("telephone",queryParam.getTelephone());
+            parameters.put("gender",queryParam.getGender());
+        }
+        model.addAttribute("queryParam",queryParam);
         parameters.put("isvalid","y");
         int count =bookUserService.findBookUsersCount(parameters);
         // 分页
