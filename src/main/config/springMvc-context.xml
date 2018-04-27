@@ -32,7 +32,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 	</context:component-scan>
 	
 
-	<mvc:view-controller path="/" view-name="forward:/index" />
+	<!--<mvc:view-controller path="/" />-->
 
 
 	<!-- 配置FreeMarker -->
@@ -58,7 +58,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></property>
 		<property name="cache" value="false"></property>
-		<property name="prefix" value=""></property>
+		<property name="prefix" value="/WEB_INF/pages/"></property>
 		<property name="suffix" value=".ftl"></property>
 		<property name="contentType" value="text/html;charset=utf-8"></property>
 		<property name="exposeRequestAttributes" value="true"></property>
@@ -93,7 +93,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
     </bean>
 
 	<import resource="classpath*:spring-mybatis.xml" ></import>
-	<import resource="classpath*:dubbo-provider.xml"></import>
+	<!--<import resource="classpath*:dubbo-provider.xml"></import>-->
 	<!--<mvc:interceptors>
 	    <mvc:interceptor>  
 	        <mvc:mapping path="/order/*/create.do"/>

@@ -15,25 +15,31 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 <!-- 引入配置文件 -->
         <bean id="propertyConfigurer"
               class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties" />
+                <property name="locations">
+                        <list>
+                                <value>classpath:jdbc.properties</value>
+                                <!-- <value>classpath:prod_db.properties</value> -->
+                                <!--要是有多个配置文件，只需在这里继续添加即可 -->
+                        </list>
+                </property>
         </bean>
 
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
               destroy-method="close">
-        <property name="driverClassName" value="${driver}" />
-        <property name="url" value="${url}" />
-        <property name="username" value="${username}" />
-        <property name="password" value="${password}" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://39.106.157.93:3306/library" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
         <!-- 初始化连接大小 -->
-        <property name="initialSize" value="${initialSize}"></property>
+        <property name="initialSize" value="0"></property>
         <!-- 连接池最大数量 -->
-        <property name="maxActive" value="${maxActive}"></property>
+        <property name="maxActive" value="20"></property>
         <!-- 连接池最大空闲 -->
-        <property name="maxIdle" value="${maxIdle}"></property>
+        <property name="maxIdle" value="20"></property>
         <!-- 连接池最小空闲 -->
-        <property name="minIdle" value="${minIdle}"></property>
+        <property name="minIdle" value="1"></property>
         <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="${maxWait}"></property>
+        <property name="maxWait" value="60000"></property>
         </bean>
 
         <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
