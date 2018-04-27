@@ -44,12 +44,12 @@
 		<ul id="aside_list" class="aside_list ul_oper_list">
             <li class="oper_item"><a target="iframeMain" ><span class="icon-tag"></span>基础设置</a>
             <ul class="ul_oper_list"> 
-            	<li class="oper_item"><a target="iframeMain" href="/vst_back/biz/category/findCategoryList.do"><span class="icon-tag"></span> 品类管理</a></li>
-				<li class="oper_item"><a target="iframeMain" href="/vst_back/biz/district/findDistrictList.do"><span class="icon-tag"></span> 行政区域管理</a></li>
-	            <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/districtSign/findDistrictSignList.do"><span class="icon-tag"></span> 地理位置管理</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="/library/user/findUsers.do"><span class="icon-tag"></span> 图书类别管理</a></li>
+				<li class="oper_item"><a target="iframeMain" href="/vst_back/biz/district/findDistrictList.do"><span class="icon-tag"></span> 图书信息管理</a></li>
+	    <#--        <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/districtSign/findDistrictSignList.do"><span class="icon-tag"></span> 地理位置管理</a></li>
 	            <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/attribution/findAttributionList.do"><span class="icon-tag"></span> 归属地区</a></li> 
 	            <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/dict/findDictList.do"><span class="icon-tag"></span> 字典管理</a></li> 
-	            <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/dest/findDestList.do"><span class="icon-tag"></span> 目的地管理</a></li> 
+	            <li class="oper_item"><a target="iframeMain" href="/vst_back/biz/dest/findDestList.do"><span class="icon-tag"></span> 目的地管理</a></li> -->
 			</ul>
 			</li>
             <li class="oper_item"><a target="iframeMain" ><span class="icon-tag"></span>产品管理</a>

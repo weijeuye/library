@@ -14,16 +14,20 @@ public class BookUserServiceImpl implements BookUserService {
     @Autowired
     private BookUserDao bookUserDao;
     @Override
-    public ArrayList<BookUser> queryBookUsers() {
-        ArrayList<BookUser> bookUsers=bookUserDao.queryBookUsers();
+    public ArrayList<BookUser> queryBookUsers(Map<String,Object> param) {
+        ArrayList<BookUser> bookUsers=bookUserDao.queryBookUsers(param);
         return bookUsers;
     }
     @Override
     public BookUser findBookUser(Map<String,Object> param){
-        BookUser bookUser=bookUserDao.findBookUser(param);
+        BookUser bookUser=bookUserDao.findBookUserByPassword(param);
        return bookUser;
     }
-
+    @Override
+    public Integer findBookUsersCount(Map<String,Object> param){
+        Integer count =bookUserDao.findBookUsersCount(param);
+       return count;
+    }
     @Override
     public Integer addBookUser(BookUser bookUser) {
         return null;

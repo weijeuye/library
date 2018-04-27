@@ -24,15 +24,22 @@
 
     </resultMap>
 
-    <select id="queryBookUsers" resultMap="BaseResultMap"  >
-        select * FROM  library.book_user;
-
+    <select id="queryBookUsers" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        <include refid="basic.pageSearchHead"/>
+        select * FROM  library.book_user bu where
+        bu.is_valid=#{isvalid,jdbcType=VARCHAR}
+        <include refid="basic.pageSearchFoot"/>
     </select>
 
-    <select id="findBookUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="findBookUserByPassword" resultMap="BaseResultMap" parameterType="java.util.Map">
         select * FROM  library.book_user b
         WHERE b.user_account=#{userName,jdbcType=VARCHAR}
 
         and  b.user_password=#{password,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findBookUsersCount" resultType="java.lang.Integer" >
+        select count(*) FROM  library.book_user bu WHERE
+        bu.is_valid=#{isvalid,jdbcType=VARCHAR};
     </select>
 </mapper>

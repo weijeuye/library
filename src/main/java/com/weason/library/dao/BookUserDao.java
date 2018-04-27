@@ -9,8 +9,9 @@ import java.util.Map;
 @Repository
 public interface BookUserDao {
 
-    public ArrayList<BookUser> queryBookUsers();
-    public BookUser findBookUser(Map<String,Object> param);
+    public ArrayList<BookUser> queryBookUsers(Map<String,Object> param);
+    public BookUser findBookUserByPassword(Map<String,Object> param);
+    public Integer findBookUsersCount(Map<String,Object> param);
     public Integer addBookUser(BookUser bookUser);
     public Integer updateBookUser(BookUser bookUser);
     public Integer deleteBookUser(BookUser bookUser);
