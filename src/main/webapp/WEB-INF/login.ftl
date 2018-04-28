@@ -52,13 +52,13 @@
         }
         $.ajax({
             type:"post",
-            url:"library/login",
+            url:"/library/login",
             data:$("#loginForm").serialize(),
             dataType:"json",
             success:function (data) {
                 if(data.status == 1){
-                    $("#message").text(data.message+"跳转中...");
-                    window.location.href="library/index";
+                    $("#message").text(data.message+",跳转中...");
+                    window.location.href="/library/index";
 
                 }else {
                    $("#message").text(data.message) ;
@@ -69,7 +69,7 @@
     function index() {
         $.ajax({
             type:"post",
-            url:"library/index.do",
+            url:"/index.do",
             data:"",
             dataType:"json",
             success:function (data) {

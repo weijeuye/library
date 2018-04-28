@@ -29,7 +29,7 @@ public class Login {
 
         if(bookUser==null){
             result.put("status",0);
-            result.put("error","请填写用户名和密码！");
+            result.put("message","请填写用户名和密码！");
             return result;
         }
         Map<String,Object> param =new HashMap<String, Object>();
@@ -38,11 +38,11 @@ public class Login {
         BookUser loginUser=bookUserService.findBookUser(param);
         if(loginUser==null){
             result.put("status",0);
-            result.put("error","用户名或者密码不对！");
+            result.put("message","用户名或者密码不对！");
             return result;
         }
         result.put("status",1);
-        result.put("success","登录成功！");
+        result.put("message","登录成功！");
         HttpSession session=request.getSession(true);
         loginUser.setUpdateTime(new Date());
         //bookUserService.updateBookUser(loginUser);
