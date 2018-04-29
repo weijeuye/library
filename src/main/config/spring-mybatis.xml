@@ -26,10 +26,10 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
               destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://39.106.157.93:3306/library" />
-        <property name="username" value="root" />
-        <property name="password" value="" />
+        <property name="driverClassName" value="${jdbc_driver}" />
+        <property name="url" value="${jdbc_url}" />
+        <property name="username" value="${jdbc_username}" />
+        <property name="password" value="${jdbc_password}" />
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="0"></property>
         <!-- 连接池最大数量 -->

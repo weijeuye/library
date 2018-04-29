@@ -71,48 +71,48 @@
                 <th>身份证</th>
                 <th>推荐人</th>
                 <th>是否有效</th>
+                <th>编辑</th>
             </tr>
         </thead>
         <tbody>
-			<#list bookUsers as bookUserArrayList>
+			<#list bookUsers as bookUser>
 				<tr>
-					<td>${bookUserArrayList.userId!''} </td>
-					<td>${bookUserArrayList.userAccount!''} </td>
-					<td>${bookUserArrayList.userName!''} </td>
+					<td>${bookUser.userId!''} </td>
+					<td>${bookUser.userAccount!''} </td>
+					<td>${bookUser.userName!''} </td>
 					<td>
-						<#if bookUserArrayList.gender == 'm'>
+						<#if bookUser.gender == 'm'>
 							<span style="color:green" class="cancelProp">男</span>
 						<#else>
 							<span style="color:red" class="cancelProp">女</span>
 						</#if> 
 					</td>
-                    <td>${bookUserArrayList.telephone!''} </td>
-                    <td>${bookUserArrayList.email!''} </td>
-                    <td>${bookUserArrayList.address!''} </td>
-                    <td>${bookUserArrayList.birthday?string("yyyy-MM-dd")} </td>
-                    <td>${bookUserArrayList.qqAccount!''} </td>
-                    <td>${bookUserArrayList.webchatAccount!''} </td>
-                    <td>${bookUserArrayList.idNumber!''} </td>
-                    <td>${bookUserArrayList.recommendUserId!''} </td>
+                    <td>${bookUser.telephone!''} </td>
+                    <td>${bookUser.email!''} </td>
+                    <td>${bookUser.address!''} </td>
+                    <td>${bookUser.birthday?string("yyyy-MM-dd")} </td>
+                    <td>${bookUser.qqAccount!''} </td>
+                    <td>${bookUser.webchatAccount!''} </td>
+                    <td>${bookUser.idNumber!''} </td>
+                    <td>${bookUser.recommendUserId!''} </td>
                     <td>
-						<#if bookUserArrayList.isValid == 'y'>
+						<#if bookUser.isValid == 'y'>
                             <span style="color:green" class="cancelProp">有效</span>
 						<#else>
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>
 
-					<#--<td class="oper">
-						<a class="editDict" href="javascript:;" data="${bizDictExtend.dictId!''}" data2="${bizDictExtend.dictDefName!''}" >编辑</a>
-						<#if bizDictExtend.dictType == 'DICT_TYPE_BUSINESS' >
-							<a href="javascript:void(0);" class="showLogDialog" param='parentId=${bizDictExtend.dictDefId}&objectId=${bizDictExtend.dictId}&parentType=DICT_BUSINESS&sysName=VST'>操作日志</a>
-						</#if>
+					<td class="oper">
+						<a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
+
+						<a href="javascript:void(0);" class="showLogDialog" param='parentId=${bookUser.userId}&objectId=${bookUser.userId}&parentType=DICT_BUSINESS&sysName=VST'>操作日志</a>
+
 						
-						<a href="javascript:;"  class="editFlag" data1="${bizDictExtend.dictId!''}" data2="${bizDictExtend.dictCancelFlag}">${(bizDictExtend.dictCancelFlag=='N')?string("设为有效", "设为无效")}</a>
-						<#if bizDictExtend.dictType == 'DICT_TYPE_BUSINESS' >
-							<a href="javascript:void(0);" class="showPhoto" data=${bizDictExtend.dictId}>图片</a>	
-						</#if>				
-                    </td>-->
+						<a href="javascript:;"  class="editFlag" data1="${bookUser.userId!''}" data2="${bookUser.isValid}">${(bookUser.isValid=='y')?string("设为无效", "设为有效")}</a>
+
+						<a href="javascript:void(0);" class="showPhoto" data=${bookUser.userId}>删除</a>
+                    </td>
 				</tr>
 			</#list>
         </tbody>
