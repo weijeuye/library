@@ -3,6 +3,7 @@
 <head>
 
 <#include "/pages/base/head_meta.ftl"/>
+	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
 <div class="iframe_header">
@@ -43,6 +44,7 @@
 	                </select>
                 </td>
                 <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
+                <td class="s_label"><a class="btn btn_cc1" id="addUser_button">新增</a></td>
                 <td></td>
                 <td></td>
                 <input type="hidden" name="page" value="${page}">
@@ -140,14 +142,21 @@ $(function(){
 	$("#search_button").bind("click",function(){
 		$("#searchForm").submit();
 	});
-	
-	//修改字典
-	$("a.editDict").bind("click",function(){
-	    var dictId=$(this).attr("data");
-	    var url = "/vst_back/biz/dict/showUpdateDict.do";
-	    var dictName =$(this).attr("data2");
-	    updateDialog = new xDialog(url,{"dictId":dictId,"requestSource":"dict"}, {title:"修改" + dictName,width:800,height:700});
-	});
+    //新增
+    $("#addUser_button").on('click',function(){
+        var url = "/library/user/addUser.do";
+        addDialog = new xDialog(url, {}, {title:"新增用户信息",width:900});
+    });
+
+    //修改
+    $("a.editDict").on('click',function(){
+        var userId = $(this).attr("data");
+        var url = "/library/user/showUpdateUser.do?userId="+userId;
+        updateDialog = new xDialog(url, {}, {title:"修改用户信息",width:900});
+    });
+
+
+
 	
 	//设置状态
 	$("a.editFlag").bind("click",function(){

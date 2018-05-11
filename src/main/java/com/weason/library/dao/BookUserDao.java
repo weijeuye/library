@@ -13,6 +13,6 @@ public interface BookUserDao {
     public BookUser findBookUserByPassword(Map<String,Object> param);
     public Integer findBookUsersCount(Map<String,Object> param);
     public Integer addBookUser(BookUser bookUser);
-    public Integer updateBookUser(BookUser bookUser);
-    public Integer deleteBookUser(BookUser bookUser);
+    public Integer updateBookUserById(BookUser bookUser);
+    public Integer deleteBookUserById(Long userId);
 }

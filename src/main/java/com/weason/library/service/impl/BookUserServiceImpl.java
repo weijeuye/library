@@ -13,21 +13,25 @@ import java.util.Map;
 public class BookUserServiceImpl implements BookUserService {
     @Autowired
     private BookUserDao bookUserDao;
+
     @Override
-    public ArrayList<BookUser> queryBookUsers(Map<String,Object> param) {
-        ArrayList<BookUser> bookUsers=bookUserDao.queryBookUsers(param);
+    public ArrayList<BookUser> queryBookUsers(Map<String, Object> param) {
+        ArrayList<BookUser> bookUsers = bookUserDao.queryBookUsers(param);
         return bookUsers;
     }
+
     @Override
-    public BookUser findBookUser(Map<String,Object> param){
-        BookUser bookUser=bookUserDao.findBookUserByPassword(param);
-       return bookUser;
+    public BookUser findBookUser(Map<String, Object> param) {
+        BookUser bookUser = bookUserDao.findBookUserByPassword(param);
+        return bookUser;
     }
+
     @Override
-    public Integer findBookUsersCount(Map<String,Object> param){
-        Integer count =bookUserDao.findBookUsersCount(param);
-       return count;
+    public Integer findBookUsersCount(Map<String, Object> param) {
+        Integer count = bookUserDao.findBookUsersCount(param);
+        return count;
     }
+
     @Override
     public Integer addBookUser(BookUser bookUser) {
         return null;
@@ -35,11 +39,16 @@ public class BookUserServiceImpl implements BookUserService {
 
     @Override
     public Integer updateBookUser(BookUser bookUser) {
-        return null;
+
+        Integer count = bookUserDao.updateBookUserById(bookUser);
+        return count;
     }
 
+
     @Override
-    public Integer deleteBookUser(BookUser bookUser) {
-        return null;
+    public Integer deleteBookUser(Long userId) {
+
+        Integer count = bookUserDao.deleteBookUserById(userId);
+        return count;
     }
 }

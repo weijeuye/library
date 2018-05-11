@@ -11,5 +11,5 @@ public interface BookUserService {
     public BookUser findBookUser(Map<String,Object> param);
     public Integer addBookUser(BookUser bookUser);
     public Integer updateBookUser(BookUser bookUser);
-    public Integer deleteBookUser(BookUser bookUser);
+    public Integer deleteBookUser(Long userId);
 }

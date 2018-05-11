@@ -54,4 +54,34 @@ public class UserAction {
         return "/pages/library/user/findUserList";
     }
 
+    @RequestMapping("/updateUser")
+    public Object updateUser(Model model,HttpServletRequest request,BookUser user){
+        Map<String,Object> resultMap=new HashMap<String,Object>();
+        if(user ==null ){
+            resultMap.put("message","参数为空！");
+            resultMap.put("status","1");
+            return resultMap;
+        }
+
+        return "";
+    }
+    @RequestMapping("/addUser")
+    public Object addUser(Model model,HttpServletRequest request,BookUser user){
+
+        model.addAttribute("user",user);
+        return "/pages/library/user/showAddUser";
+    }
+    @RequestMapping("/showUpdateUser")
+    public Object showUpdateUser(Model model,HttpServletRequest request,Long userId){
+        BookUser user=null;
+        if(userId ==null){
+            model.addAttribute("user",user);
+            return "/pages/library/user/showAddUser";
+        }
+        Map<String,Object> param=new HashMap<String,Object>();
+        param.put("userId",userId);
+        user=bookUserService.findBookUser(param);
+        model.addAttribute("user",user);
+        return "/pages/library/user/showAddUser";
+    }
 }

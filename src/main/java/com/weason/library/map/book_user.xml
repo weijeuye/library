@@ -46,9 +46,17 @@
 
     <select id="findBookUserByPassword" resultMap="BaseResultMap" parameterType="java.util.Map">
         select * FROM  library.book_user b
-        WHERE b.user_account=#{userName,jdbcType=VARCHAR}
+        WHERE 1=1
+        <if test="userId !=null and userId !=''">
+            and b.userId=#{userId,jdbcType=INTEGER}
+        </if>
+        <if test="userName !=null and userName !=''">
+            and b.user_account=#{userName,jdbcType=VARCHAR}
 
+        </if>
+        <if test="password !=null and password !=''">
         and  b.user_password=#{password,jdbcType=VARCHAR}
+        </if>
     </select>
 
     <select id="findBookUsersCount" resultType="java.lang.Integer" >
@@ -67,4 +75,51 @@
             and bu.gender =#{gender,jdbcType=VARCHAR}
         </if>
     </select>
+
+    <update id="updateBookUserById"  parameterType="com.weason.library.po.BookUser">
+      UPDATE library.book_user bu SET
+      bu.user_name=#{userName,jdbcType=VARCHAR},
+      bu.birthday=#{birthday,jdbcType=DATE},
+      bu.address=#{address,jdbcType=VARCHAR},
+      bu.email=#{email,jdbcType=VARCHAR},
+      bu.id_number=#{idNumber,jdbcType=VARCHAR},
+      bu.qq_account=#{qqAccount,jdbcType=VARCHAR},
+      bu.telephone=#{telephone,jdbcType=VARCHAR} WHERE bu.userId=#{userId,jdbc=INTEGER}
+    </update>
+    <delete id="deleteBookeUserById" parameterType="java.lang.Long">
+        delete from library.book_user bu where bu.userId=#{userId,jdbc=INTEGER}
+    </delete>
+    <insert id="addBookUser" parameterType="com.weason.library.po.BookUser">
+      insert into library.book_user
+      (user_account,
+      user_name,
+      gender,
+      telephone,
+      address,
+      birthday,
+      create_time,
+      email,
+      qq_account,
+      webchat_account,
+      memo,
+      user_type,
+      id_number,
+      point,
+      is_valid ) VALUES (
+      #{userAccount,jdbcType=VARCHAR},
+       #{userName,jdbcType=VARCHAR},
+       #{gender,jdbcType=VARCHAR},
+       #{telephone,jdbcType=VARCHAR},
+       #{address,jdbcType=VARCHAR},
+       #{birthday,jdbcType=VARCHAR},
+       sysdate,
+       #{email,jdbcType=VARCHAR},
+       #{qqAccount,jdbcType=VARCHAR},
+       #{webchatAccount,jdbcType=VARCHAR},
+       'u',
+       #{idNumber,jdbcType=VARCHAR},
+       0,
+       'Y'
+      );
+    </insert>
 </mapper>
