@@ -34,12 +34,18 @@ public class BookUserServiceImpl implements BookUserService {
 
     @Override
     public Integer addBookUser(BookUser bookUser) {
-        return null;
+        if (bookUser==null){
+            return 0;
+        }
+        int result =bookUserDao.addBookUser(bookUser);
+        return result;
     }
 
     @Override
     public Integer updateBookUser(BookUser bookUser) {
-
+        if (bookUser==null){
+            return 0;
+        }
         Integer count = bookUserDao.updateBookUserById(bookUser);
         return count;
     }

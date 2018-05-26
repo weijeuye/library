@@ -92,7 +92,7 @@
                     <td>${bookUser.telephone!''} </td>
                     <td>${bookUser.email!''} </td>
                     <td>${bookUser.address!''} </td>
-                    <td>${bookUser.birthday?string("yyyy-MM-dd")} </td>
+                    <td>${bookUser.birthday!''} </td>
                     <td>${bookUser.qqAccount!''} </td>
                     <td>${bookUser.webchatAccount!''} </td>
                     <td>${bookUser.idNumber!''} </td>
@@ -145,7 +145,7 @@ $(function(){
     //新增
     $("#addUser_button").on('click',function(){
         var url = "/library/user/addUser.do";
-        addDialog = new xDialog(url, {}, {title:"新增用户信息",width:900});
+        updateDialog = new xDialog(url, {}, {title:"新增用户信息",width:900});
     });
 
     //修改
@@ -160,14 +160,18 @@ $(function(){
 	
 	//设置状态
 	$("a.editFlag").bind("click",function(){
-		 var dictId=$(this).attr("data1");
-		 var dictCancelFlag=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/vst_back/biz/dict/editDictFlag.do?dictId="+dictId+"&cancelFlag="+dictCancelFlag+"&newDate="+new Date();
-		 msg = dictCancelFlag === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
+		 var userId=$(this).attr("data1");
+		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
+		 var url = "/library/user/showUpdateUser.do?userId="+userId+"&isValid="+isValid;
+		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
-			    alert("设置成功");
-				$("#searchForm").submit();
+                 if(data && data.code=='SUCCESS'){
+                     $.alert(data.message);
+                     $("#searchForm").submit();
+                 }else {
+                     $.alert(data.message);
+                 }
 		     });
 	     });
 	});

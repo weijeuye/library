@@ -78,13 +78,31 @@
 
     <update id="updateBookUserById"  parameterType="com.weason.library.po.BookUser">
       UPDATE library.book_user bu SET
-      bu.user_name=#{userName,jdbcType=VARCHAR},
-      bu.birthday=#{birthday,jdbcType=DATE},
-      bu.address=#{address,jdbcType=VARCHAR},
-      bu.email=#{email,jdbcType=VARCHAR},
-      bu.id_number=#{idNumber,jdbcType=VARCHAR},
-      bu.qq_account=#{qqAccount,jdbcType=VARCHAR},
-      bu.telephone=#{telephone,jdbcType=VARCHAR} WHERE bu.userId=#{userId,jdbc=INTEGER}
+        <if test="userName !=null and userName !=''">
+            bu.user_name=#{userName,jdbcType=VARCHAR},
+        </if>
+        <if test="birthday !=null and birthday !=''">
+            bu.birthday=#{birthday,jdbcType=DATE},
+        </if>
+        <if test="address !=null and address !=''">
+            bu.address=#{address,jdbcType=VARCHAR},
+        </if>
+        <if test="email !=null and email !=''">
+            bu.email=#{email,jdbcType=VARCHAR},
+        </if>
+        <if test="idNumber !=null and idNumber !=''">
+            bu.id_number=#{idNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="qqAccount !=null and qqAccount !=''">
+            bu.qq_account=#{qqAccount,jdbcType=VARCHAR},
+        </if>
+        <if test="telephone !=null and telephone !=''">
+            bu.telephone=#{telephone,jdbcType=VARCHAR},
+        </if>
+      <if test="isValid !=null and isValid !=''">
+          bu.is_valid=#{isValid,jdbcType=VARCHAR},
+      </if>
+      bu.update_time = sysdate() WHERE bu.userId=#{userId,jdbcType=INTEGER}
     </update>
     <delete id="deleteBookeUserById" parameterType="java.lang.Long">
         delete from library.book_user bu where bu.userId=#{userId,jdbc=INTEGER}
@@ -106,18 +124,41 @@
       id_number,
       point,
       is_valid ) VALUES (
-      #{userAccount,jdbcType=VARCHAR},
-       #{userName,jdbcType=VARCHAR},
-       #{gender,jdbcType=VARCHAR},
-       #{telephone,jdbcType=VARCHAR},
-       #{address,jdbcType=VARCHAR},
-       #{birthday,jdbcType=VARCHAR},
-       sysdate,
-       #{email,jdbcType=VARCHAR},
-       #{qqAccount,jdbcType=VARCHAR},
-       #{webchatAccount,jdbcType=VARCHAR},
+      <if test="userAccount!=null">
+          #{userAccount,jdbcType=VARCHAR},
+      </if>
+        <if test="userName!=null">
+            #{userName,jdbcType=VARCHAR},
+        </if>
+        <if test="gender!=null">
+            #{gender,jdbcType=VARCHAR},
+        </if>
+        <if test="telephone!=null">
+        #{telephone,jdbcType=VARCHAR},
+        </if>
+        <if test="address!=null">
+            #{address,jdbcType=VARCHAR},
+        </if>
+        <if test="birthday!=null">
+            #{birthday,jdbcType=VARCHAR},
+        </if>
+       sysdate(),
+        <if test="email!=null">
+            #{email,jdbcType=VARCHAR},
+        </if>
+        <if test="qqAccount!=null">
+            #{qqAccount,jdbcType=VARCHAR},
+        </if>
+        <if test="webchatAccount!=null">
+            #{webchatAccount,jdbcType=VARCHAR},
+        </if>
+        <if test="memo!=null">
+            #{memo,jdbcType=VARCHAR},
+        </if>
        'u',
-       #{idNumber,jdbcType=VARCHAR},
+        <if test="idNumber!=null">
+            #{idNumber,jdbcType=VARCHAR},
+        </if>
        0,
        'Y'
       );

@@ -8,13 +8,13 @@ public class BookUser implements Serializable {
 
     private static final long serialVersionUID = 3128326781722935074L;
 
-    private Long userId;
+    private long userId;
     private String userAccount;
     private String userName;
     private String gender;
     private String telephone;
     private String address;
-    private Date birthday;
+    private String birthday;
     private Long recommendUserId;
     private Date recommendDateTime;
     private Date createTime;
@@ -30,11 +30,11 @@ public class BookUser implements Serializable {
     private Integer point;
     private String isValid;
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -78,11 +78,11 @@ public class BookUser implements Serializable {
         this.address = address;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

@@ -4,6 +4,7 @@ import com.weason.library.po.BookUser;
 import com.weason.library.service.BookUserService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
+import com.weason.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,5 +84,53 @@ public class UserAction {
         user=bookUserService.findBookUser(param);
         model.addAttribute("user",user);
         return "/pages/library/user/showAddUser";
+    }
+
+    @RequestMapping("/saveUser")
+    @ResponseBody
+    public Object saveUser(Model model,BookUser user,HttpServletRequest request){
+        Map<String,Object> result=new HashMap<String,Object>();
+        if(user ==null){
+            result.put("code","error");
+            result.put("message","保存失败，参数异常!");
+            return result;
+        }
+        if(user.getUserId() == 0){
+           int resultcount= bookUserService.addBookUser(user);
+            if(resultcount > 0){
+                result.put("code","success");
+                result.put("message","新增成功!");
+            }else {
+                result.put("code","fail");
+                result.put("message","修改失败!");
+            }
+        }else {
+            int count=bookUserService.updateBookUser(user);
+            if( count > 0){
+                result.put("code","success");
+                result.put("message","修改成功!");
+            }else {
+                result.put("code","fail");
+                result.put("message","修改失败!");
+            }
+        }
+        return result;
+    }
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public Object updateStatus(long userId ,String status){
+        Map<String,Object> result=new HashMap<String,Object>();
+        if(userId ==0 || status== null ){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        BookUser user=new BookUser();
+        user.setUserId(userId);
+        user.setIsValid(status);
+        int count =bookUserService.updateBookUser(user);
+        if( count > 0){
+            return ResultMessage.UPDATE_SUCCESS_RESULT;
+        }else {
+            return ResultMessage.UPDATE_FAIL_RESULT;
+        }
     }
 }
