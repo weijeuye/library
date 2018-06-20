@@ -91,41 +91,34 @@ public class UserAction {
     public Object saveUser(Model model,BookUser user,HttpServletRequest request){
         Map<String,Object> result=new HashMap<String,Object>();
         if(user ==null){
-            result.put("code","error");
-            result.put("message","保存失败，参数异常!");
-            return result;
+           return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         if(user.getUserId() == 0){
            int resultcount= bookUserService.addBookUser(user);
             if(resultcount > 0){
-                result.put("code","success");
-                result.put("message","新增成功!");
+               return ResultMessage.ADD_SUCCESS_RESULT;
             }else {
-                result.put("code","fail");
-                result.put("message","修改失败!");
+               return ResultMessage.ADD_FAIL_RESULT;
             }
         }else {
             int count=bookUserService.updateBookUser(user);
             if( count > 0){
-                result.put("code","success");
-                result.put("message","修改成功!");
+              return ResultMessage.UPDATE_SUCCESS_RESULT;
             }else {
-                result.put("code","fail");
-                result.put("message","修改失败!");
+             return ResultMessage.UPDATE_FAIL_RESULT;
             }
         }
-        return result;
     }
     @RequestMapping("/updateStatus")
     @ResponseBody
-    public Object updateStatus(long userId ,String status){
+    public Object updateStatus(long userId ,String isValid){
         Map<String,Object> result=new HashMap<String,Object>();
-        if(userId ==0 || status== null ){
+        if(userId ==0 || isValid== null ){
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         BookUser user=new BookUser();
         user.setUserId(userId);
-        user.setIsValid(status);
+        user.setIsValid(isValid);
         int count =bookUserService.updateBookUser(user);
         if( count > 0){
             return ResultMessage.UPDATE_SUCCESS_RESULT;
