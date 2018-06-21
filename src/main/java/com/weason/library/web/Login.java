@@ -72,7 +72,7 @@ public class Login {
         if(bookUser==null){
             return "login";
         }
-        return "index";
+        return "indexNew";
 
     };
 }

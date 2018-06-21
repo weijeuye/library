@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -15,8 +16,8 @@ public class BookUserServiceImpl implements BookUserService {
     private BookUserDao bookUserDao;
 
     @Override
-    public ArrayList<BookUser> queryBookUsers(Map<String, Object> param) {
-        ArrayList<BookUser> bookUsers = bookUserDao.queryBookUsers(param);
+    public List<BookUser> queryBookUsers(Map<String, Object> param) {
+        List<BookUser> bookUsers = bookUserDao.queryBookUsers(param);
         return bookUsers;
     }
 

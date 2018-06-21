@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -45,7 +42,7 @@ public class UserAction {
         parameters.put("_start", pageParam.getStartRows());
         parameters.put("_end", pageParam.getEndRows());
 
-        ArrayList<BookUser> bookUserArrayList= bookUserService.queryBookUsers(parameters);
+        List<BookUser> bookUserArrayList= bookUserService.queryBookUsers(parameters);
         pageParam.setParam(bookUserArrayList);
         model.addAttribute("page",pagenum);
         model.addAttribute("pageParam",pageParam);
