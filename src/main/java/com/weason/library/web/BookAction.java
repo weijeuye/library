@@ -67,7 +67,7 @@ public class BookAction {
         return "/pages/library/bookType/findbookTyeList";
     }
     @RequestMapping(value = "/showAddBookType")
-    public String showAddCategory(Model model, Long bookTypeId) throws Exception {
+    public String showAddBookType(Model model, Long bookTypeId) throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         parameters.put("bookTypeId", bookTypeId);
@@ -142,7 +142,14 @@ public class BookAction {
         model.addAttribute("nodeList",GsonUtils.toJson(nodeList));
         return "/pages/library/book/findBookList";
     }
-
+    @RequestMapping(value = "/showAddBook")
+    public String showAddBook(Model model,HttpServletRequest  request,HttpServletResponse response) throws Exception {
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
+        nodeList = findBookTypeNodeList();
+        model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        return "/pages/library/book/showAddBook";
+    }
     /**
      * 查询并封装图书分类树形结构
      * @return

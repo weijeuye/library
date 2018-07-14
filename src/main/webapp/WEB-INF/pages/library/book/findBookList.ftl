@@ -5,7 +5,7 @@
 <#include "/pages/base/head_meta.ftl"/>
     <link rel="stylesheet" href="/library/css/ztree/zTreeStyle.css" >
     <link rel="stylesheet" href="/library/css/ztree/ebk.css" >
-    <link rel="stylesheet" href="/library/css/novaDialog.css">
+   <#-- <link rel="stylesheet" href="/library/css/novaDialog.css">-->
 	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
@@ -259,8 +259,14 @@ $(function(){
 	});
     //新增
     $("#addUser_button").on('click',function(){
-        var url = "/library/user/addUser.do";
-        updateDialog = new xDialog(url, {}, {title:"新增用户信息",width:900});
+        var url = "/library/book/showAddBook.do";
+        updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:900});
+    });
+
+    //扫描新增
+    $("#atuoAddBook_button").on('click',function(){
+        var url = "/library/book/showAddBook.do";
+        updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:900});
     });
 
     //修改
