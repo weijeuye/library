@@ -2,7 +2,13 @@
 <html>
 <head>
 
-<#include "/base/head_meta.ftl"/>
+<#include "/pages/base/head_meta.ftl"/>
+
+    <link rel="stylesheet" href="/library/css/ztree/zTreeStyle.css" >
+    <link rel="stylesheet" href="/library/css/ztree/ebk.css" >
+    <link rel="stylesheet" href="/library/css/novaDialog.css">
+    <link rel="stylesheet" href="http://pic.lvmama.com/min/index.php?f=/styles/lv/calendar.css,/styles/lv/buttons.css,/styles/lv/dialog.css,/styles/lv/icons.css">
+
 </head>
 <body>
 <div class="iframe_header">
@@ -15,12 +21,12 @@
 </div>
 
 <div class="iframe_search">
-	<form method="post" action='/vst_admin/biz/category/findCategoryList.do' id="searchForm">
+	<form method="post" action='/library/book/findBookTypeList.do' id="searchForm">
     <table class="s_table">
         <tbody>
             <tr>
                 <td class="s_label">名称：</td>
-                <td class="w18"><input type="text" name="categoryName" value="${categoryName!''}"></td>
+                <td class="w18"><input type="text" name="bookTypeName" value="${bookTypeName!''}"></td>
                 <td class=" operate mt10"><a class="btn btn_cc1" id="search_button">查询</a></td>
                 <td class=" operate mt10"><a class="btn btn_cc1" id="new_button">新增</a></td>
                 <input type="hidden" name="page" value="${page}">
@@ -36,36 +42,23 @@
 	<table class="p_table table_center">
         <thead>
             <tr>
-        	<th>编号</th>
-            <th>品类名称</th>
-            <th>品类代码</th>
-            <th>状态</th>
-			<th>排序值</th>
-            <th>操作</th>
+        	<th>id</th>
+            <th>分类名称</th>
+            <th>上级分类id</th>
+            <th>分类等级</th>
+			<th>操作</th>
             </tr>
         </thead>
         <tbody>
-			<#list pageParam.items as bizCategory> 
+			<#list pageParam.items as bookType>
 			<tr>
-			<td>${bizCategory.categoryId!''} </td>
-			<td>&nbsp;&nbsp;${bizCategory.categoryName!''} </td>
-			<td>&nbsp;&nbsp;${bizCategory.categoryCode!''} </td>
-			<td>
-				<#if bizCategory.cancelFlag == 'Y'>
-					<span style="color:green" class="cancelProp">有效</span>
-				<#else>
-					<span style="color:red" class="cancelProp">无效</span>
-				</#if> 
-			</td>
-			<td>${bizCategory.seq!''} </td>
+			<td>${bookType.bookTypeId!''} </td>
+			<td>&nbsp;&nbsp;${bookType.bookTypeName!''} </td>
+			<td>&nbsp;&nbsp;${bookType.bookTypeParentId!''} </td>
+			<td>${bookType.levelCode!''} </td>
 			<td class="oper">
-                    <a class="editCate" href="javascript:void(0);" data="${bizCategory.categoryId!''}" >编辑基本信息</a>
-                    <a class="editCateGroup" href="javascript:void(0);" data="${bizCategory.categoryId!''}" data2="${bizCategory.categoryName!''}">编辑属性分组</a>
-                    <a class="editCateProp" href="javascript:void(0);" data="${bizCategory.categoryId!''}"
-					data2="${bizCategory.categoryName!''}"
-					>编辑属性</a>
-                    <a class="editBranch" href="javascript:void(0);" data="${bizCategory.categoryId!''}" data2="${bizCategory.categoryName!''}">编辑规格</a>
-                    <a href="javascript:void(0);"  class="editCategoryFlag" data="${bizCategory.categoryId!''}" data2="${bizCategory.cancelFlag}">${(bizCategory.cancelFlag=='N')?string("设为有效", "设为无效")}</a>					
+                    <a class="editCate" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑基本信息</a>
+                    <a class="editBranch" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑规格</a>
                 </td>
 			</tr>
 			</#list>
@@ -82,10 +75,10 @@
 </div><!-- div p_box -->
 	
 </div><!-- //主要内容显示区域 -->
-<#include "/base/foot.ftl"/>
+<#include "/pages/base/foot.ftl"/>
 </body>
 </html>
-
+<script type="text/javascript" src="/library/bootstrap/js/novaDialog.js" ></script>
 <script>
 var categoryPropListDialog,categoryPropGroupsDialog,branchListDialog;
 $(function(){
@@ -94,53 +87,87 @@ $("searchForm input[name='categoryName']").focus();
 	$("#search_button").bind("click",function(){
 		$("#searchForm").submit();
 });
-	
+
+
+
 //新增品类
 $("#new_button").bind("click",function(){
-   dialog("/vst_admin/biz/category/showAddCategory.do", "新增品类", 800,"auto",function(){
-		if(!$("#dataForm").validate().form()){
-			return false;
+    dialog("/library/book/showAddBookType.do", "编辑基本属性", 800, "auto",function(){
+        if(!$("#dataForm").validate().form()){
+            return false;
+        }
+        var resultCode;
+        var nodeList=JSON.parse($("#nodeList").val());
+        var bookTypeParentId=$("#bookTypeParentId").val();
+        if(nodeList && nodeList.length > 0){
+
+            if(bookTypeParentId && bookTypeParentId!=''){
+                updateBookType();
+            }else {
+                $.confirm("未选择上级分类，如不选择，保存成功后为一级分类，确认保存吗 ？", function () {
+                    debugger;
+                    updateBookType();
+
+                },"保存");
+                return false;
+            }
+        }else {
+            $.confirm("暂无图书分类，此次添加可不选择，保存成功为图书一级分类，是否继续？", function () {
+                debugger;
+                updateBookType();
+            },"保存");
+            return false;
 		}
-		var resultCode; 
-		$.ajax({
-				url : "/vst_admin/biz/category/addCategory.do",
-				type : "post",
-				async: false,
-				data : $(".dialog #dataForm").serialize(),
-				dataType:'JSON',
-				success : function(result) {
-				    resultCode=result.code;
-					confirmAndRefresh(result);
-				}
-			});
-		},"保存");
+
+
+    });
 });
 
-//编辑基本属性
+//编辑基图书分类
 $("a.editCate").bind("click",function(){
-    var categoryId=$(this).attr("data");
-    var url = "/vst_admin/biz/category/showAddCategory.do?categoryId="+categoryId;
+    var bookTypeId=$(this).attr("data");
+    var url = "/library/book/showAddBookType.do?bookTypeId="+bookTypeId;
 	dialog(url, "编辑基本属性", 800, "auto",function(){
 	    if(!$("#dataForm").validate().form()){
+			return false;
+		}
+        var bookTypeParentId=$("#bookTypeParentId").val();
+	    if(bookTypeParentId && bookTypeParentId==bookTypeId){
+			$.alert("不能选择与自己同级的分类，请重新选择！");
 			return false;
 		}
 	    var resultCode; 
 	    $.confirm("确认修改吗 ？", function () {
 		$.ajax({
-			url : "/vst_admin/biz/category/updateCategory.do",
+			url : "/library/book/updateBookType.do",
 			type : "post",
 			async: false,
 			data : $(".dialog #dataForm").serialize(),
 			dataType:'JSON',
-			success : function(result) {
-			    resultCode=result.code;
-				confirmAndRefresh(result);
+			success : function(data) {
+			    resultCode=data.code;
+				confirmAndRefresh(data);
 			}
 		});
 	},"保存");
 	return false;
 	});
 });
+ function updateBookType() {
+     $.ajax({
+         url : "/library/book/addBookType.do",
+         type : "post",
+         async: false,
+         data : $(".dialog #dataForm").serialize(),
+         dataType:'JSON',
+         success : function(result) {
+             if(result && result.code =='success'){
+                 $.alert(result.message);
+			 }
+             confirmAndRefresh(result);
+         }
+     });
+ }
 	
 //编辑属性分组
 $("a.editCateGroup").bind("click",function(){

@@ -18,7 +18,7 @@ import java.util.List;
 public class GenTableToCode {
     private String packageOutPath = "com.weason.library.po";//指定实体生成所在包的路径
     private String authorName = "weason";//作者名字
-    private String tableName = "book_book";//表名
+    private String tableName = "book_type";//表名
     private String[] colNames; // 列名数组
     private String[] colTypes; //列名类型数组
     private int[] colSizes; //列名大小数组
@@ -265,7 +265,7 @@ public class GenTableToCode {
     public static void main(String[] args) throws Exception{
         GenTableToCode genTableToCode = new GenTableToCode();
         List<String> tableNames = new ArrayList<String>();
-        tableNames.add("book_book");
+        tableNames.add("book_type");
         //tableNames.add("menu");
         for (String tableName : tableNames) {
             genTableToCode.genTableToCode(tableName);

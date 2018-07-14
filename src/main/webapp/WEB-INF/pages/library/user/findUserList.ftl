@@ -73,6 +73,7 @@
                 <th>身份证</th>
                 <th>推荐人</th>
                 <th>是否有效</th>
+                <th>图片</th>
                 <th>编辑</th>
             </tr>
         </thead>
@@ -104,7 +105,7 @@
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>
-
+                    <td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
 

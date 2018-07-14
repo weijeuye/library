@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/library/css/newVersion1/framework/bootstrap.css">
     <link rel="stylesheet" href="/library/css/newVersion1/framework/messenger.css">
     <link rel="stylesheet" href="/library/css/newVersion1/framework/messenger-theme-flat.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/framework/vst.css">
+    <link rel="stylesheet" href="/library/css/newVersion1/framework/vst.css">
     <link rel="stylesheet" href="/library/css/newVersion1/framework/index.css">
     <link rel="stylesheet" href="/library/css/newVersion1/framework/verify.css">
 
@@ -126,8 +126,8 @@
                     <dl class="nav nav-sidebar tab-content-management">
                         <dt><i></i><em title="图书管理">图书管理</em><b></b></dt>
                         <dd>
-                            <a data-id="3"  href="/library/user/findUsers.do" permId="3"  data-name="三级目录1">图书类别信息</a>
-                            <a data-id="4"  href="www.baidu.com" permId="4"  data-name="三级目录1">图书信息</a>
+                            <a data-id="3"  href="/library/book/findBookTypeList.do" permId="3"  data-name="图书类别信息">图书类别信息</a>
+                            <a data-id="4"  href="/library/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>
                         </dd>
                     </dl>
 				<#--<#list menuList as obj>

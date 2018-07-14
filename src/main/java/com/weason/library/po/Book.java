@@ -12,10 +12,10 @@ public class Book implements Serializable {
     private long bookId;
     private String bookName;
     private long bookTypeId;
+    private String bookTypeName;
     private String bookAuthor;
     private String bookPub;
     private Date bookPubTime;
-    private Date bookRecord;
     private Integer bookNum;
     private Integer bookLeftNum;
     private String bookState;
@@ -24,8 +24,26 @@ public class Book implements Serializable {
     private Double bookPrice;
     private String isbn;
     private String bookImg;
+    private String isValid;
     private Date createDateTime;
     private Date updateDateTime;
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
+
+    public String getBookTypeName() {
+        return bookTypeName;
+    }
+
+    public void setBookTypeName(String bookTypeName) {
+        this.bookTypeName = bookTypeName;
+    }
+
     public void setBookId(long bookId){
         this.bookId=bookId;
     }
@@ -61,12 +79,6 @@ public class Book implements Serializable {
     }
     public Date getBookPubTime(){
         return bookPubTime;
-    }
-    public void setBookRecord(Date bookRecord){
-        this.bookRecord=bookRecord;
-    }
-    public Date getBookRecord(){
-        return bookRecord;
     }
     public void setBookNum(Integer bookNum){
         this.bookNum=bookNum;
