@@ -10,7 +10,7 @@
 		oneKeyTime : '', /* 一次按键时间间隔 */
 		twoKeyTime : '', /* 两次按键时间间隔 */
 		keyDownTime: '', /* 键按下的时间    */
-		barcodeLen : 8 , /* 条形码长度      */
+		barcodeLen : 13 , /* 条形码长度      */
 		spanTime   : 70, /* 一次按键按下到释放的时间间隔 */
 		zerokeyVal : 48, /* 零的key值      */
 		ninekeyVal : 57, /* 数字9的key值   */
@@ -55,7 +55,7 @@
 				var isHand = that.checkHandInput();
 
 				if(that.check && isHand && that.in_range(e.which)){
-					layer.msg('禁止手动输入');
+					alert('禁止手动输入');
 					$(that.listenerObj).val("");
 				}
 			})
@@ -115,7 +115,7 @@
 				this.show(this.listenerObj.val());
 				// layer.msg('扫描成功',{time:1000});
 			}else{
-				layer.msg('no callback function');
+				alert('no callback function');
 			}
 			this.listenerObj.val("").focus();
 		},
@@ -144,8 +144,9 @@
 
 	};
 	$.fn.startListen = function(options){
+		debugger;
 		var settings = $.extend({
-			barcodeLen : 8,
+			barcodeLen : 13,
 			letter : false,//条码不包含字母
 			number : true, //条码为数字
 		},options);

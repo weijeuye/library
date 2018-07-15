@@ -182,6 +182,7 @@
 <script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="/library/js/jquery.barcode.js"> </script>
 <script>
 //属性列表弹出框对象，不要有重名的
 var dictPropDefListDialog, dictPropListDialog, updateDialog,updateDictPropDialog;
@@ -260,13 +261,13 @@ $(function(){
     //新增
     $("#addUser_button").on('click',function(){
         var url = "/library/book/showAddBook.do";
-        updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:900});
+        updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:1500});
     });
 
     //扫描新增
     $("#atuoAddBook_button").on('click',function(){
         var url = "/library/book/showAddBook.do";
-        updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:900});
+        updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:1500});
     });
 
     //修改
