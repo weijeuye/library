@@ -117,13 +117,13 @@
 			}else{
 				alert('no callback function');
 			}
-			this.listenerObj.val("").focus();
+			//this.listenerObj.val("").focus();
 		},
 		keepFocusInput : function(){
 			this.listenerObj.blur(function(){
 				var that = $(this);
 				setTimeout(function(){ 
-					that.focus().select();
+					//that.focus().select();
 				},300);
 			});
 		},
@@ -139,7 +139,7 @@
 			this.on_key_up();
 			this.on_key_press();
 			this.keepFocusInput();
-			this.listenerObj.focus().select();
+			//this.listenerObj.focus().select();
 		}
 
 	};

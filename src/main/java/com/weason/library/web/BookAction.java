@@ -8,9 +8,12 @@ import com.weason.library.vo.ZTreeNode;
 import com.weason.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -31,6 +35,19 @@ public class BookAction {
     private BookTypeService bookTypeService;
     @Autowired
     private BookService bookService;
+    /**
+     * form表单提交 Date类型数据绑定
+     * <功能详细描述>
+     * @param binder
+     * @see [类、类#方法、类#成员]
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
 
     /**
      * 查询书籍分类列表
@@ -151,6 +168,18 @@ public class BookAction {
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         return "/pages/library/book/showAddBook";
     }
+    @RequestMapping(value = "/saveBook")
+    @ResponseBody
+    public Object saveBook(Book book){
+        if(book ==null){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        Integer count=bookService.addBook(book);
+        if(count > 0){
+            return  ResultMessage.ADD_SUCCESS_RESULT;
+        }
+       return  ResultMessage.ADD_FAIL_RESULT;
+    }
 
     /**
      * 查询并封装图书分类树形结构
@@ -232,10 +261,18 @@ public class BookAction {
             List<String> authors = (List<String>) jsonObject.get("author");
             String author = this.listToString(authors);
             String summary = jsonObject.getString("summary");
+            String price=jsonObject.getString("price");
 
             if(jsonObject.get("pubdate") !=null ){
-                String datee=jsonObject.get("pubdate").toString();
-                Date publishTime=  DateUtil.toDate(datee,"yyyy-DD");
+                String dateStr=jsonObject.get("pubdate").toString();
+                Integer num=judgeNum(dateStr);
+                Date publishTime=null;
+                if(num ==1){
+                    publishTime=  DateUtil.toDate(dateStr,"yyyy-MM");
+                }else if(num ==2){
+                    publishTime=  DateUtil.toDate(dateStr,"yyyy-MM-dd");
+                }
+
                 book.setBookPubTime(publishTime);
             }
             Object imgs = jsonObject.get("images");
@@ -279,5 +316,18 @@ public class BookAction {
         String img = json.getString("large");
         return img;
 
+    }
+    private Integer judgeNum(String str){
+        Integer num=0;
+        if(str ==null || str ==""){
+            return num;
+        }
+        char[] strArray=str.toCharArray();
+        for(int i=0;i<strArray.length;i++){
+            if('-'==strArray[i]){
+                num++;
+            }
+        }
+        return num;
     }
 }

@@ -75,7 +75,7 @@
                       </th>
                   </td>
                   <!--自己增加开始-->
-                  <div id="retrieveSuppGroupContent" class="menuContent retrieveSuppGroupContent" style="display:none; position: absolute; top: 145px; left: 188px">
+                  <div id="retrieveSuppGroupContent" class="menuContent retrieveSuppGroupContent" style="display:none; position: absolute; top: 115px; left: 600px">
                       <ul id="suppGroupTree" class="ztree" style="margin-top:0; width:160px;"></ul>
                   </div>
                   <!--自己增加结束-->
@@ -261,13 +261,13 @@ $(function(){
     //新增
     $("#addUser_button").on('click',function(){
         var url = "/library/book/showAddBook.do";
-        updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:1500});
+        updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:1200});
     });
 
     //扫描新增
     $("#atuoAddBook_button").on('click',function(){
         var url = "/library/book/showAddBook.do";
-        updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:1500});
+        updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:1200});
     });
 
     //修改

@@ -26,7 +26,7 @@ public class BookDao extends MyBatisDao{
         return super.get("queryBookById",param);
     }
 
-    public Integer addBookById(Book book) {
+    public Integer addBook(Book book) {
         return super.insert("addBook",book);
     }
 

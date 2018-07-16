@@ -33,8 +33,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Integer addBookById(Book book) {
-        return bookDao.addBookById(book);
+    public Integer addBook(Book book) {
+        return bookDao.addBook(book);
     }
 
     @Override

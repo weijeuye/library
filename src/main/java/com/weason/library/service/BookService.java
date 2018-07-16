@@ -14,7 +14,7 @@ public interface BookService {
     public List<Book> findBooksByParam(Map<String,Object> param);
     public Integer findBooksCountByParam(Map<String,Object> param);
     public Book findBookById(Map<String,Object> param);
-    public Integer addBookById(Book book);
+    public Integer addBook(Book book);
     public Integer updateBookById(Map<String,Object> param);
     public Integer deleteBookById(Map<String,Object> param);
     public Integer deleteBookById(Long bookId);
