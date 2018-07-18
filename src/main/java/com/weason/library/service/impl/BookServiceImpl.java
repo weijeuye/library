@@ -28,8 +28,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findBookById(Map<String, Object> param) {
-        return bookDao.findBookById(param);
+    public Book findBookByParam(Map<String, Object> param) {
+        return bookDao.queryBookByParam(param);
     }
 
     @Override

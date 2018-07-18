@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="book_book">
-    <resultMap id="BaseResultMap" type="com.weason.library.po.Book">
-        <id  column="book_id"  property="bookId" jdbcType="INTEGER"/>
-        <result column="book_name"  property="bookName" jdbcType="VARCHAR"/>
-        <result column="book_type_id" property="bookTypeId" jdbcType="INTEGER"/>
-        <result column="book_type_name" property="bookTypeName" jdbcType="INTEGER"/>
-        <result column="book_author" property="bookAuthor" jdbcType="VARCHAR"/>
-        <result column="book_pub" property="bookPub" jdbcType="VARCHAR"/>
-        <result column="book_pub_time" property="bookPubTime" jdbcType="VARCHAR"/>
-        <result column="book_num" property="bookNum" jdbcType="INTEGER"/>
-        <result column="book_left_num" property="bookLeftNum" jdbcType="INTEGER"/>
-        <result column="book_state" property="bookState" jdbcType="VARCHAR"/>
-        <result column="book_language" property="bookLanguage" jdbcType="VARCHAR"/>
-        <result column="book_introduction" property="bookIntroduction" jdbcType="VARCHAR"/>
-        <result column="book_price" property="bookPrice" jdbcType="DOUBLE"/>
-        <result column="ISBN" property="isbn" jdbcType="VARCHAR"/>
-        <result column="book_img" property="bookImg" jdbcType="VARCHAR"/>
-        <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
-        <result column="create_date_time" property="createDateTime" jdbcType="VARCHAR"/>
-        <result column="update_date_time" property="updateDateTime" jdbcType="VARCHAR"/>
+<mapper namespace="book_borrow">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.ReaderInfo">
+        <id  column="borrow_id"  property="borrowId" jdbcType="INTEGER"/>
+        <result column="user_id"  property="userId" jdbcType="INTEGER"/>
+        <result column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="borrow_time" property="borrowTime" jdbcType="VARCHAR"/>
+        <result column="return_ime" property="returnIme" jdbcType="VARCHAR"/>
+        <result column="act_return_time" property="actReturnTime" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="create_date_time" property="createDateTime" jdbcType="INTEGER"/>
+        <result column="update_date_time" property="updateDateTime" jdbcType="INTEGER"/>
+        <result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <resultMap id="bookBorrowVoMap" type="com.weason.library.vo.BookBorrowVo">
+        <id  column="borrow_id"  property="borrowId" jdbcType="INTEGER"/>
+        <result column="user_id"  property="userId" jdbcType="INTEGER"/>
+        <result column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="borrow_time" property="borrowTime" jdbcType="VARCHAR"/>
+        <result column="return_ime" property="returnIme" jdbcType="VARCHAR"/>
+        <result column="act_return_time" property="actReturnTime" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="user_name"  property="userName" jdbcType="VARCHAR"/>
+        <result column="book_name" property="bookName" jdbcType="VARCHAR"/>
+        <result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
 
     </resultMap>
 

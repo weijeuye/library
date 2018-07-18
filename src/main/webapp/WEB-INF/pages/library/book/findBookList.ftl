@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/library/css/ztree/ebk.css" >
    <#-- <link rel="stylesheet" href="/library/css/novaDialog.css">-->
 	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
 <div class="iframe_header">
@@ -18,8 +21,8 @@
 </div>
 
 <div class="iframe_search">
-<form method="post" action='/library/book/findbookList.do' id="searchForm">
-    <input id="nodeList" type="hidden" name="nodeList" value=${nodeList}>
+<form method="post" action='/library/book/findBooks.do' id="searchForm">
+    <input id="nodeList" type="hidden"  value=${nodeList}>
     <table class="s_table">
         <tbody>
             <tr>
@@ -35,7 +38,7 @@
 
               </tr>
               <tr>
-                  <td class="s_label">是否有效</td>
+                  <td class="s_label">是否在库</td>
                   <td class="w18">
                       <select name="bookState">
                       <#if queryParam.bookState??>
@@ -51,7 +54,7 @@
                       </select>
                   </td>
 
-                  <td class="s_label">是否在库</td>
+                  <td class="s_label">是否有效</td>
                   <td class="w18">
                       <select name="isValid">
                       <#if queryParam.isValid??>
@@ -69,8 +72,8 @@
 
 
                   <td class="s_label">图书分类</td>
-                  <td ><th ><input type="text" id="bookTypeName" name="bookTypeName" value="${queryParam.bookTypeName!''}">
-                      <a href="javascript:" class="JS_choose_supp_group mr10" data-id="${queryParam.bookTypeId!''}" disabled>[选择图书分类]</a>
+                  <td ><th ><input type="text" id="bookTypeName" name="bookTypeName" value="${queryParam.bookTypeName!''}" readonly>
+                      <a href="javascript:" class="JS_choose_supp_group mr10" data-id="${queryParam.bookTypeId!''}" disabled >[选择图书分类]</a>
                       <a href="javascript:void(0);" class=" JS_reset_supp_group" data-id="${queryParam.bookTypeId!''}">重置</a>
                       </th>
                   </td>
@@ -105,7 +108,7 @@
 <!-- 主要内容显示区域\\ -->
 <div class="iframe-content mt20">   
     <div class="p_box">
-	<table class="p_table table_center">
+	<table class="p_table table_center" style="table-layout: fixed;">
         <thead>
             <tr>
                 <th>图书名称</th>
@@ -144,7 +147,7 @@
                     <td>${book.bookPrice!''} </td>
                     <td>${book.isbn!''} </td>
                     <td>${book.bookLanguage!''} </td>
-                    <td>${book.bookIntroduction!''} </td>
+                    <td class="autocut" style="white-space:nowrap;overflow: hidden;text-overflow:ellipsis" title="${book.bookIntroduction!''}">${book.bookIntroduction!''} </td>
                     <td>
                         <#if book.isValid?? && book.isValid == 'Y'>
                             <span style="color:green" class="cancelProp">有效</span>
@@ -155,12 +158,8 @@
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${book.bookId!''}" data2="" >编辑</a>
 
-						<a href="javascript:void(0);" class="showLogDialog" param='parentId=${book.bookId}&objectId=${book.bookId}&parentType=DICT_BUSINESS&sysName=VST'>操作日志</a>
-
-						
 						<a href="javascript:;"  class="editFlag" data1="${book.bookId!''}" data2="${book.isValid}">${(book.isValid=='Y')?string("设为无效", "设为有效")}</a>
 
-						<a href="javascript:void(0);" class="showPhoto" data=${book.bookId}>删除</a>
                     </td>
 				</tr>
 			</#list>
@@ -207,7 +206,7 @@ $(function(){
     //重置搜索表单中组织树的选择
     $(".JS_reset_supp_group").bind('click', function () {
         $("#bookTypeName").val('');
-        $("#bookTypeId").val('');
+        $("#bookTypeId").val(0);
     });
     function initData(nodeList) {
         var _selectTreeSetting = {
@@ -273,8 +272,8 @@ $(function(){
     //修改
     $("a.editDict").on('click',function(){
         var bookId = $(this).attr("data");
-        var url = "/library/user/showUpdateUser.do?bookId="+bookId;
-        updateDialog = new xDialog(url, {}, {title:"修改用户信息",width:900});
+        var url = "/library/book/showUpdateBook.do?bookId="+bookId;
+        updateDialog = new xDialog(url, {}, {title:"修改书籍信息",width:1200});
     });
 
 
@@ -284,11 +283,11 @@ $(function(){
 	$("a.editFlag").bind("click",function(){
 		 var bookId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/library/user/showUpdateUser.do?bookId="+bookId+"&isValid="+isValid;
+		 var url = "/library/book/updateBookState.do?bookId="+bookId+"&isValid="+isValid;
 		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
-                 if(data && data.code=='SUCCESS'){
+                 if(data && data.code=='success'){
                      $.alert(data.message);
                      $("#searchForm").submit();
                  }else {

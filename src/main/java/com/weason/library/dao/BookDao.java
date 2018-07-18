@@ -22,8 +22,8 @@ public class BookDao extends MyBatisDao{
     public Integer queryBooksCount(Map<String, Object> param) {
         return super.get("queryBooksCount",param);
     }
-    public Book findBookById(Map<String, Object> param) {
-        return super.get("queryBookById",param);
+    public Book queryBookByParam(Map<String, Object> param) {
+        return super.get("queryBookByParam",param);
     }
 
     public Integer addBook(Book book) {

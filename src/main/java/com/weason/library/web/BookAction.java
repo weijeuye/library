@@ -12,6 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -136,6 +137,8 @@ public class BookAction {
             parameters.put("bookPrice", queryParam.getBookPrice());
             parameters.put("isbn", queryParam.getIsbn());
             parameters.put("bookState", queryParam.getBookState());
+            parameters.put("isValid", queryParam.getIsValid());
+
 
         }
         model.addAttribute("queryParam", queryParam);
@@ -168,17 +171,103 @@ public class BookAction {
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         return "/pages/library/book/showAddBook";
     }
+    @RequestMapping(value = "/showUpdateBook")
+    public String showUpdateBook(Model model, HttpServletRequest request, HttpServletResponse response,Long bookId) throws Exception {
+        if(bookId==null){
+            return "参数异常，请刷新页面！";
+        }
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("bookId",bookId);
+        Book book=bookService.findBookByParam(parameters);
+        model.addAttribute("book",book);
+        List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
+        nodeList = findBookTypeNodeList();
+        model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        return "/pages/library/book/showUpdateBook";
+    }
+
     @RequestMapping(value = "/saveBook")
     @ResponseBody
     public Object saveBook(Book book){
         if(book ==null){
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        Integer count=bookService.addBook(book);
-        if(count > 0){
-            return  ResultMessage.ADD_SUCCESS_RESULT;
+        Map<String,Object> param=new HashMap<String,Object>();
+        //数据库有isbn 则修改数量
+        if(!StringUtils.isEmpty(book.getIsbn())){
+            param.put("isbn",book.getIsbn());
+            Book currentBook =bookService.findBookByParam(param);
+            if(currentBook!=null && currentBook.getBookNum() > 0){
+                param.clear();
+                param.put("bookId",currentBook.getBookId());
+                param.put("bookNum",currentBook.getBookNum()+1);
+                Integer updateCount=bookService.updateBookById(param);
+                if(updateCount > 0){
+                   return ResultMessage.ADD_SUCCESS_RESULT;
+                }else {
+                    return ResultMessage.ADD_FAIL_RESULT;
+                }
+
+            }
+        }else{
+            //数据库 没有isbn 新增
+            Integer count=bookService.addBook(book);
+            if(count > 0){
+                return  ResultMessage.ADD_SUCCESS_RESULT;
+            }
         }
        return  ResultMessage.ADD_FAIL_RESULT;
+    }
+    @RequestMapping(value = "/updateBook")
+    @ResponseBody
+    public Object updateBook(Book book){
+        if(book ==null){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        Map<String,Object> param=new HashMap<String,Object>();
+        //数据库有isbn 则修改数量
+        if(!StringUtils.isEmpty(book.getIsbn())){
+            param.put("isbn",book.getIsbn());
+            Book currentBook =bookService.findBookByParam(param);
+            if(currentBook!=null){
+                param.clear();
+                param.put("bookId",currentBook.getBookId());
+                param.put("bookNum",currentBook.getBookNum());
+                param.put("bookPrice",currentBook.getBookPrice());
+                param.put("bookTypeId",currentBook.getBookTypeId());
+                param.put("bookName",currentBook.getBookName());
+                param.put("bookAuthor",currentBook.getBookAuthor());
+                param.put("bookPubTime",currentBook.getBookPubTime());
+                param.put("bookPub",currentBook.getBookPub());
+                param.put("bookImg",currentBook.getBookImg());
+                param.put("bookIntroduction",currentBook.getBookIntroduction());
+                Integer updateCount=bookService.updateBookById(param);
+                if(updateCount > 0){
+                    return ResultMessage.UPDATE_SUCCESS_RESULT;
+                }else {
+                    return ResultMessage.UPDATE_FAIL_RESULT;
+                }
+
+            }
+        }
+        return  ResultMessage.UPDATE_FAIL_RESULT;
+    }
+    @RequestMapping(value = "/updateBookState")
+    @ResponseBody
+    public Object updateBookState(Long bookId,String isValid ){
+        if(bookId ==null){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        Map<String,Object> param=new HashMap<String,Object>();
+
+        param.put("bookId",bookId);
+        param.put("isValid",isValid);
+        Integer updateCount=bookService.updateBookById(param);
+        if(updateCount > 0){
+            return ResultMessage.UPDATE_SUCCESS_RESULT;
+        }else {
+            return ResultMessage.UPDATE_FAIL_RESULT;
+        }
     }
 
     /**
@@ -216,6 +305,20 @@ public class BookAction {
         map.put("isbn", str);
         return map;
     }
+    //
+    @RequestMapping(value = "/findBookByIsbn")
+    @ResponseBody
+    public Object findBookByIsbn(Model model, Long isbn) throws Exception {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Book book=null;
+        String str = "";
+        if (isbn == null) {
+            return book;
+        }
+        map.put("isbn",isbn);
+        book=bookService.findBookByParam(map);
+        return book;
+    }
 
     public StringBuffer isbnApi(Long isbn) {
         String path = "https://api.douban.com/v2/book/isbn/:" + isbn;
@@ -252,7 +355,9 @@ public class BookAction {
 
     private Book toBook(String sb) {
         Book book = new Book();
-        if (sb != null && sb != "") {
+        if (StringUtils.isEmpty(sb)) {
+            return null;
+        }
             JSONObject jsonObject = JSONObject.fromObject(sb);
             //提取所需要的字段
             String bname = jsonObject.getString("title");
@@ -286,9 +391,6 @@ public class BookAction {
             book.setBookIntroduction(summary);
             book.setBookImg(image);
             return book;
-
-        }
-        return book;
     }
 
     /**

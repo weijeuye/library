@@ -113,7 +113,26 @@
     $("#testButton").on("click",function () {
         var code=9787121232930;
         $("#isbn").val(code);
-        findIsbnInfo(code);
+        //校验库存
+        $.ajax({
+            url : "/library/book/findBookByIsbn.do?isbn="+code,
+            type : "get",
+            dataType : "json",
+            //async : false,
+            // data : $("#uatoAddBookDialogDataForm").serialize(),
+            success : function(book) {
+                if (book && book.bookNum) {
+                    debugger;
+                    $.alert("库中已存在该图书，当前数量为"+book.bookNum+",如要添加，请到图书信息修改中自行修改图书数量!");
+                   /* $.confirm("库中已存在该图书，当前数量为"+book.bookNum+",确认要添加吗？", function () {
+                        findIsbnInfo(code);
+                    });*/
+
+                } else {
+                    findIsbnInfo(code);
+                }
+            }
+        });
     });
     function findIsbnInfo(code){
         $.ajax({
@@ -124,29 +143,33 @@
            // data : $("#uatoAddBookDialogDataForm").serialize(),
             success : function(result) {
                 if (result && result.book ) {
-                    var $dialogHtml=$("#uatoAddBookDialogDataForm");
+
                     var book=result.book;
-                    debugger;
-                    $dialogHtml.find("#bookName").val(book.bookName);
-                    $dialogHtml.find("#bookAuthor").val(book.bookAuthor);
-                    $dialogHtml.find("#bookPub").val(book.bookPub);
-                    $dialogHtml.find("#bookPubTime").val(timetrans(book.bookPubTime));
-                    $dialogHtml.find("#bookIntroduction").val(book.bookIntroduction);
-                    $dialogHtml.find("#bookPrice").val(book.bookPrice);
-                    $dialogHtml.find("#bookImg").val(book.bookImg);
-                    if(book.bookImg && book.bookImg !=''){
-
-                        $dialogHtml.find("#imgSrc").attr("src",book.bookImg).show();
-                    }
-
+                    drawHtml(book);
 
                 } else {
-                    alert(result.isbn);
+                    alert("无法查阅到本图书,请手动添加！");
                 }
             }
         });
     }
+        //渲染新增书籍页面
+        function drawHtml() {
+            var $dialogHtml=$("#uatoAddBookDialogDataForm");
+            $dialogHtml.find("#bookName").val(book.bookName);
+            $dialogHtml.find("#bookAuthor").val(book.bookAuthor);
+            $dialogHtml.find("#bookPub").val(book.bookPub);
+            $dialogHtml.find("#bookPubTime").val(timetrans(book.bookPubTime));
+            $dialogHtml.find("#bookIntroduction").val(book.bookIntroduction);
+            $dialogHtml.find("#bookPrice").val(book.bookPrice);
+            $dialogHtml.find("#bookImg").val(book.bookImg);
+            if(book.bookImg && book.bookImg !=''){
 
+                $dialogHtml.find("#imgSrc").attr("src",book.bookImg).show();
+            }
+
+
+        }
 
         function timetrans(date){
             var date = new Date(date);//如果date为10位不需要乘1000
