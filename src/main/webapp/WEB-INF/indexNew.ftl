@@ -18,16 +18,21 @@
         };
 
         function loginOut(t) {
-            t.href='${basePath}'+"loginOut.do";
+            t.href='${basePath}'+"/loginout.do";
         };
 
     </script>
+    <style type="text/css">
+        .chengzhangji::before  {
+            background: url("/img/next.png") no-repeat;
+        }
+
+    </style>
 </head>
 <body>
 <div class="header clearfix">
     <div class="left clearfix">
-        <a class="logo"><i></i><em>驴妈妈业务系统</em></a>
-        <a class="return-old" href="http://super.lvmama.com/pet_back/index.do?oldVersion=true" target="_self"><i></i><em>返回旧版</em></a>
+        <a class="logo "><i></i><em>驴妈妈业务系统</em></a>
     </div>
     <div class="right clearfix">
 	<#--<div class="search">-->
@@ -119,7 +124,7 @@
                         <dt><i></i><em title="学员管理">学员管理</em><b></b></dt>
                         <dd>
                             <a data-id="1"  href="/library/user/findUsers.do" permId="1"  data-name="学员信息管理">学员信息管理</a>
-                            <a data-id="2"  href="www.baidu.com" permId="2"  data-name="借阅管理">借阅管理</a>
+                            <a data-id="2"  href="/library/bookBorrow/findBookBorrows.do" permId="2"  data-name="借阅管理">借阅管理</a>
                         </dd>
                     </dl>
 

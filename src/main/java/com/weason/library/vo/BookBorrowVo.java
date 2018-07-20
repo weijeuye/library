@@ -14,13 +14,15 @@ public class BookBorrowVo implements Serializable{
 	private long userId;
 	private long bookId;
 	private Date borrowTime;
-	private Date returnIme;
+	private Date returnTime;
 	private Date actReturnTime;
 	private String isReturn;
 	private long operatorId;
 
 	private String userName;
-	private String BookName;
+	private String bookName;
+	private String isbn;
+	private String userAccount;
 
 	public String getUserName() {
 		return userName;
@@ -31,11 +33,35 @@ public class BookBorrowVo implements Serializable{
 	}
 
 	public String getBookName() {
-		return BookName;
+		return bookName;
 	}
 
 	public void setBookName(String bookName) {
-		BookName = bookName;
+		this.bookName = bookName;
+	}
+
+	public Date getReturnTime() {
+		return returnTime;
+	}
+
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(String userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	public void setBorrowId(long borrowId){
@@ -63,10 +89,10 @@ public class BookBorrowVo implements Serializable{
 		return borrowTime;
 	}
 	public void setReturnIme(Date returnIme){
-	this.returnIme=returnIme;
+	this.returnTime=returnIme;
 	}
 	public Date getReturnIme(){
-		return returnIme;
+		return returnTime;
 	}
 	public void setActReturnTime(Date actReturnTime){
 	this.actReturnTime=actReturnTime;

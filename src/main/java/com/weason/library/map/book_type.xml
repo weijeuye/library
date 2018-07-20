@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.weason.library.po.BookType">
         <id  column="book_type_id"  property="bookTypeId" jdbcType="INTEGER"/>
         <result column="book_type_parent_id"  property="bookTypeParentId" jdbcType="INTEGER"/>
+        <result column="book_type_parent_name"  property="bookTypeParentName" jdbcType="VARCHAR"/>
         <result column="level_code"  property="levelCode" jdbcType="INTEGER"/>
         <result column="book_type_name" property="bookTypeName" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
@@ -13,7 +14,8 @@
 
     <select id="findBookTypeList" resultMap="BaseResultMap"  parameterType="java.util.Map">
         <include refid="basic.pageSearchHead"/>
-        select * FROM  library.book_type bu where
+        select bu.*,bu1.book_type_name as book_type_parent_name FROM  library.book_type bu left join library.book_type bu1
+        on bu.book_type_parent_id=bu1.book_type_id where
         1=1
         <if test="levelCode !=null and levelCode !='' " >
             and bu.level_code=#{levelCode,jdbcType=INTEGER}

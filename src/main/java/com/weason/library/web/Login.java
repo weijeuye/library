@@ -58,7 +58,7 @@ public class Login {
         //session.invalidate();
         return "";*/
     }
-    @RequestMapping("loginout")
+    @RequestMapping("/loginout")
     private Object loginout(Model model,HttpServletRequest request,HttpServletResponse response){
         request.getSession().invalidate();
        return   "login";

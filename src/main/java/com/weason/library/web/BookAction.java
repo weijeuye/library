@@ -8,13 +8,10 @@ import com.weason.library.vo.ZTreeNode;
 import com.weason.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -31,24 +27,11 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/book")
-public class BookAction {
+public class BookAction extends BaseAction{
     @Autowired
     private BookTypeService bookTypeService;
     @Autowired
     private BookService bookService;
-    /**
-     * form表单提交 Date类型数据绑定
-     * <功能详细描述>
-     * @param binder
-     * @see [类、类#方法、类#成员]
-     */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
 
     /**
      * 查询书籍分类列表
@@ -70,8 +53,6 @@ public class BookAction {
         pageParam.buildUrl(req);
         parameters.put("_start", pageParam.getStartRows());
         parameters.put("_end", pageParam.getEndRows());
-        parameters.put("_orderby", "book_type_id");
-        parameters.put("_order", "DESC");
         List<BookType> list = bookTypeService.findBookTypeList(parameters);
         pageParam.setItems(list);
 
@@ -100,6 +81,23 @@ public class BookAction {
         return "/pages/library/bookType/showAddBookType";
     }
 
+    @RequestMapping(value = "/addBookType")
+    @ResponseBody
+    public Object addBookType(BookType bookType) throws Exception {
+        if (bookType == null || bookType.getBookTypeName()== null) {
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        if (bookType.getBookTypeParentId() == null) {
+            bookType.setLevelCode(0L);
+        }
+        int count = bookTypeService.addBookType(bookType);
+        if (count == 0) {
+            return ResultMessage.ADD_FAIL_RESULT;
+        }
+        return ResultMessage.ADD_SUCCESS_RESULT;
+
+    }
+
     /**
      * 修改书籍分类
      *
@@ -109,7 +107,7 @@ public class BookAction {
      */
     @RequestMapping(value = "/updateBookType")
     @ResponseBody
-    public Object addCategory(BookType bookType) throws Exception {
+    public Object updateBookType(BookType bookType) throws Exception {
         if (bookType == null || bookType.getBookTypeId() == null) {
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }

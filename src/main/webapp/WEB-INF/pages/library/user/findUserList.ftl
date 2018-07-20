@@ -9,8 +9,8 @@
 <div class="iframe_header">
     <ul class="iframe_nav">
         <li><a href="#">首页</a> &gt;</li>
-        <li><a href="#">图书管理</a> &gt;</li>
-        <li class="active">图书信息管理</li>
+        <li><a href="#">学员管理</a> &gt;</li>
+        <li class="active">学员信息管理</li>
     </ul>
 </div>
 
@@ -73,7 +73,7 @@
                 <th>身份证</th>
                 <th>推荐人</th>
                 <th>是否有效</th>
-                <th>图片</th>
+               <#-- <th>图片</th>-->
                 <th>编辑</th>
             </tr>
         </thead>
@@ -105,16 +105,13 @@
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>
-                    <td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>
+                    <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
+                        <a class="borrowBook" href="javascript:;" data="${bookUser.userId!''}" data2="" >借书</a>
 
-						<a href="javascript:void(0);" class="showLogDialog" param='parentId=${bookUser.userId}&objectId=${bookUser.userId}&parentType=DICT_BUSINESS&sysName=VST'>操作日志</a>
+						<a href="javascript:;"  class="editFlag" data1="${bookUser.userId!''}" data2="${bookUser.isValid}">${(bookUser.isValid=='Y')?string("设为无效", "设为有效")}</a>
 
-						
-						<a href="javascript:;"  class="editFlag" data1="${bookUser.userId!''}" data2="${bookUser.isValid}">${(bookUser.isValid=='y')?string("设为无效", "设为有效")}</a>
-
-						<a href="javascript:void(0);" class="showPhoto" data=${bookUser.userId}>删除</a>
                     </td>
 				</tr>
 			</#list>
@@ -156,6 +153,12 @@ $(function(){
         updateDialog = new xDialog(url, {}, {title:"修改用户信息",width:900});
     });
 
+    //借书
+    $("a.borrowBook").on('click',function(){
+        var userId = $(this).attr("data");
+        var url = "/library/bookBorrow/showBorrowBook.do?userId="+userId;
+        updateDialog = new xDialog(url, {}, {title:"借阅图书",width:1200});
+    });
 
 
 	

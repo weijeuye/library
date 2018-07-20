@@ -15,8 +15,8 @@
  <i class="icon-home ihome"></i>
     <ul class="iframe_nav">
         <li><a href="#">首页</a> &gt;</li>
-        <li><a href="#">品类管理</a> &gt;</li>
-        <li class="active">品类列表</li>
+        <li><a href="#">图书管理</a> &gt;</li>
+        <li class="active">图书分类</li>
     </ul>
 </div>
 
@@ -44,7 +44,7 @@
             <tr>
         	<th>id</th>
             <th>分类名称</th>
-            <th>上级分类id</th>
+            <th>上级分类</th>
             <th>分类等级</th>
 			<th>操作</th>
             </tr>
@@ -54,11 +54,11 @@
 			<tr>
 			<td>${bookType.bookTypeId!''} </td>
 			<td>&nbsp;&nbsp;${bookType.bookTypeName!''} </td>
-			<td>&nbsp;&nbsp;${bookType.bookTypeParentId!''} </td>
+			<td>&nbsp;&nbsp;${bookType.bookTypeParentName!''} </td>
 			<td>${bookType.levelCode!''} </td>
 			<td class="oper">
-                    <a class="editCate" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑基本信息</a>
-                    <a class="editBranch" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑规格</a>
+                    <a class="editCate" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑</a>
+                    <#--<a class="editBranch" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑规格</a>-->
                 </td>
 			</tr>
 			</#list>
@@ -92,7 +92,7 @@ $("searchForm input[name='categoryName']").focus();
 
 //新增品类
 $("#new_button").bind("click",function(){
-    dialog("/library/book/showAddBookType.do", "编辑基本属性", 800, "auto",function(){
+    dialog("/library/book/showAddBookType.do", "新增图书分类", 800, "auto",function(){
         if(!$("#dataForm").validate().form()){
             return false;
         }
@@ -127,7 +127,7 @@ $("#new_button").bind("click",function(){
 $("a.editCate").bind("click",function(){
     var bookTypeId=$(this).attr("data");
     var url = "/library/book/showAddBookType.do?bookTypeId="+bookTypeId;
-	dialog(url, "编辑基本属性", 800, "auto",function(){
+	dialog(url, "编辑基图书分类", 800, "auto",function(){
 	    if(!$("#dataForm").validate().form()){
 			return false;
 		}
@@ -168,33 +168,6 @@ $("a.editCate").bind("click",function(){
          }
      });
  }
-	
-//编辑属性分组
-$("a.editCateGroup").bind("click",function(){
-    var categoryId=$(this).attr("data");
-	var categoryName=$(this).attr("data2");
-	var url = "/vst_admin/biz/categoryPropGroup/findCategoryPropGroup.do?categoryId="+categoryId;
-	categoryPropGroupsDialog = new xDialog(url,{},{title:"编辑属性分组---"+categoryName,iframe:true,width:800,height:550}); 
-	return false;	
-});
-
-//编辑属性
-$("a.editCateProp").bind("click",function(){
-    var categoryId=$(this).attr("data");
-	var categoryName=$(this).attr("data2");
-	var url = "/vst_admin/biz/categoryProp/findCategoryPropList.do?categoryId="+categoryId;
-	categoryPropListDialog = new xDialog(url,{},{title:"编辑属性---"+categoryName,iframe:true,width:1300,height:800});	
-	return false;
-});
-
-//编辑规格
-$("a.editBranch").bind("click",function(){
-    var categoryId=$(this).attr("data");	
-	var categoryName=$(this).attr("data2")
-	var url = "/vst_admin/biz/branch/findBranchList.do?categoryId="+categoryId;
-	branchListDialog =new xDialog(url,{},{title:"编辑规格---"+categoryName,width:800,height:600});
-	return false;
-});
 
 $("a.editCategoryFlag").bind("click",function(){
 	 var categoryId=$(this).attr("data");

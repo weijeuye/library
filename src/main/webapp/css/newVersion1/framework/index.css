@@ -32,7 +32,7 @@ body {
 .header .logo i {
     margin: 10px 5px 0 10px;
     display: inline-block;
-    background: url(http://pic.lvmama.com/img/backstage/vst/framework/vst.png) no-repeat -40px -100px;
+    background: url(/library/css/images/icon-arrow-pink.png) no-repeat -40px -100px;
     width: 30px;
     height: 30px;
     vertical-align: top; }

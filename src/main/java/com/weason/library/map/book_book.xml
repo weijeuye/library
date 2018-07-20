@@ -117,7 +117,7 @@
         </if>
     </select>
 
-    <update id="updateBookById"  parameterType="com.weason.library.po.Book">
+    <update id="updateBookById"  parameterType="java.util.Map">
       UPDATE library.book_book bu SET
         <if test="bookName !=null and bookName !=''">
             bu.book_name=#{bookName,jdbcType=VARCHAR},
@@ -134,7 +134,7 @@
         <if test="bookPubTime !=null and bookPubTime !=''">
             bu.book_pub_time=#{bookPubTime,jdbcType=VARCHAR},
         </if>
-        <if test="bookLeftNum !=null and bookLeftNum !=''">
+        <if test="bookLeftNum !=null">
             bu.book_left_num=#{bookLeftNum,jdbcType=INTEGER},
         </if>
         <if test="bookLanguage !=null and bookLanguage !=''">
@@ -145,6 +145,9 @@
         </if>
         <if test="isValid !=null and isValid !='' ">
             bu.is_valid =#{isValid,jdbcType=VARCHAR},
+        </if>
+        <if test="bookState !=null and bookState !='' ">
+            bu.book_state =#{bookState,jdbcType=VARCHAR},
         </if>
       bu.update_date_time = sysdate() WHERE bu.book_id=#{bookId,jdbcType=INTEGER}
     </update>

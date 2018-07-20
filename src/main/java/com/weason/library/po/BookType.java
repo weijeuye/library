@@ -12,10 +12,19 @@ import java.util.Date;
 public class BookType implements Serializable{
     private Long bookTypeId;
     private Long bookTypeParentId;
+    private String bookTypeParentName;
     private String bookTypeName;
     private Long levelCode;
     private Date createDateTime;
     private Date updateDateTime;
+
+    public String getBookTypeParentName() {
+        return bookTypeParentName;
+    }
+
+    public void setBookTypeParentName(String bookTypeParentName) {
+        this.bookTypeParentName = bookTypeParentName;
+    }
 
     public Long getLevelCode() {
         return levelCode;

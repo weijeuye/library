@@ -28,6 +28,7 @@ public class ResultMessage implements Serializable {
 	public static final ResultMessage DELETE_FAIL_RESULT = new ResultMessage(ERROR, "删除失败");
 
 	public static final ResultMessage PARAM_EXCEPTION_RESULT = new ResultMessage(ERROR, "参数异常");
+	public static final ResultMessage BORROW_EXCEPTION_RESULT = new ResultMessage(ERROR, "该学员已经借过本书且未归还，请仔细核对！");
 	
 
 	private String code;

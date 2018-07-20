@@ -16,7 +16,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 http://www.springframework.org/schema/tx 
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://www.springframework.org/schema/mvc
-http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
 >
 
 	<description>library MVC配置</description>
@@ -90,5 +90,19 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 	        <bean class="com.lvmama.vst.comm.web.interceptor.TokenValidInterceptor"/>  
 	    </mvc:interceptor>  
 	</mvc:interceptors>-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<!-- 与登录相关的请求 -->
+			<!--<mvc:exclude-mapping    path="/login" />
+			&lt;!&ndash; 以下是静态资源 &ndash;&gt;
+			<mvc:exclude-mapping path="/img/**" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/bootstrap/**" />
+			<mvc:exclude-mapping path="/js/**" />-->
+
+			<bean id="loginInterceptor" class="com.weason.library.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans>

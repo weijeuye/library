@@ -14,7 +14,7 @@ public class BookBorrow implements Serializable{
 	private long userId;
 	private long bookId;
 	private Date borrowTime;
-	private Date returnIme;
+	private Date returnTime;
 	private Date actReturnTime;
 	private String isReturn;
 	private Date createDateTime;
@@ -44,12 +44,15 @@ public class BookBorrow implements Serializable{
 	public Date getBorrowTime(){
 		return borrowTime;
 	}
-	public void setReturnIme(Date returnIme){
-	this.returnIme=returnIme;
+
+	public Date getReturnTime() {
+		return returnTime;
 	}
-	public Date getReturnIme(){
-		return returnIme;
+
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
 	}
+
 	public void setActReturnTime(Date actReturnTime){
 	this.actReturnTime=actReturnTime;
 	}
