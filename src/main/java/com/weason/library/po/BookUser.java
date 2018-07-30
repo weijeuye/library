@@ -29,6 +29,60 @@ public class BookUser implements Serializable {
     private String idNumber;
     private Integer point;
     private String isValid;
+    private String motherName;
+    private String fatherName;
+    private String school;
+    private String className;
+    private String motherTelephone;
+    private String fatherTelephone;
+
+    public String getMotherName() {
+        return motherName;
+    }
+
+    public void setMotherName(String motherName) {
+        this.motherName = motherName;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getMotherTelephone() {
+        return motherTelephone;
+    }
+
+    public void setMotherTelephone(String motherTelephone) {
+        this.motherTelephone = motherTelephone;
+    }
+
+    public String getFatherTelephone() {
+        return fatherTelephone;
+    }
+
+    public void setFatherTelephone(String fatherTelephone) {
+        this.fatherTelephone = fatherTelephone;
+    }
 
     public long getUserId() {
         return userId;

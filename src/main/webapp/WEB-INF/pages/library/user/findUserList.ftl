@@ -23,11 +23,13 @@
                 <td class="w18"><input type="text" name="userAccount" value="${queryParam.userAccount!''}"></td>
                 <td class="s_label">用户名称</td>
                 <td class="w18"><input type="text" name="userName" value="${queryParam.userName!''}"></td>
-                <td class="s_label">电话：</td>
-                <td class="w18"><input type="text" name="telephone" value="${queryParam.telephone!''}"></td>
+                <td class="s_label">父亲电话：</td>
+                <td class="w18"><input type="text" name="fatherTelephone" value="${queryParam.fatherTelephone!''}"></td>
             	<td class="s_label"></td>
               </tr>
               <tr>
+                  <td class="s_label">母亲电话：</td>
+                  <td class="w18"><input type="text" name="motherTelephone" value="${queryParam.motherTelephone!''}"></td>
               	<td class="s_label">性别：</td>
                 <td class="w18">
 	                <select name="gender">
@@ -64,13 +66,12 @@
                 <th>账号</th>
             	<th>姓名</th>
                 <th>性别</th>
-                <th>电话</th>
-                <th>邮箱</th>
-                <th>地址</th>
+                <th>学校</th>
+                <th>班级</th>
+                <th>父亲电话</th>
+                <th>母亲电话</th>
+                <th>住址</th>
                 <th>出生日期</th>
-                <th>qq号</th>
-                <th>微信号</th>
-                <th>身份证</th>
                 <th>推荐人</th>
                 <th>是否有效</th>
                <#-- <th>图片</th>-->
@@ -84,22 +85,21 @@
 					<td>${bookUser.userAccount!''} </td>
 					<td>${bookUser.userName!''} </td>
 					<td>
-						<#if bookUser.gender == 'm'>
+						<#if bookUser.gender?? && bookUser.gender == 'm'>
 							<span style="color:green" class="cancelProp">男</span>
 						<#else>
 							<span style="color:red" class="cancelProp">女</span>
 						</#if> 
 					</td>
-                    <td>${bookUser.telephone!''} </td>
-                    <td>${bookUser.email!''} </td>
+                    <td>${bookUser.school!''} </td>
+                    <td>${bookUser.className!''} </td>
+                    <td>${bookUser.fatherTelephone!''} </td>
+                    <td>${bookUser.motherTelephone!''} </td>
                     <td>${bookUser.address!''} </td>
                     <td>${bookUser.birthday!''} </td>
-                    <td>${bookUser.qqAccount!''} </td>
-                    <td>${bookUser.webchatAccount!''} </td>
-                    <td>${bookUser.idNumber!''} </td>
                     <td>${bookUser.recommendUserId!''} </td>
                     <td>
-						<#if bookUser.isValid == 'y'>
+						<#if bookUser.isValid == 'Y'>
                             <span style="color:green" class="cancelProp">有效</span>
 						<#else>
                             <span style="color:red" class="cancelProp">无效</span>
@@ -166,11 +166,11 @@ $(function(){
 	$("a.editFlag").bind("click",function(){
 		 var userId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/library/user/showUpdateUser.do?userId="+userId+"&isValid="+isValid;
+		 var url = "/library/user/updateStatus.do?userId="+userId+"&isValid="+isValid;
 		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
-                 if(data && data.code=='SUCCESS'){
+                 if(data && data.code=='success'){
                      $.alert(data.message);
                      $("#searchForm").submit();
                  }else {

@@ -29,11 +29,13 @@ public class UserAction {
         if(queryParam!=null ){
             parameters.put("userAccount",queryParam.getUserAccount());
             parameters.put("userName",queryParam.getUserName());
-            parameters.put("telephone",queryParam.getTelephone());
+            parameters.put("motherTelephone",queryParam.getMotherTelephone());
+            parameters.put("fatherTelephone",queryParam.getFatherTelephone());
             parameters.put("gender",queryParam.getGender());
         }
         model.addAttribute("queryParam",queryParam);
-        parameters.put("isvalid","y");
+        parameters.put("isvalid","Y");
+        parameters.put("userType","u");
         int count =bookUserService.findBookUsersCount(parameters);
         // 分页
         int pagenum = page == null ? 1 : page;
