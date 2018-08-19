@@ -2,7 +2,10 @@
 <html >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" name="renderer" content="webkit">
-    <title>驴妈妈业务系统</title>
+    <title>成长记图书管理系统</title>
+    <link rel="icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/library/css/images/favicon.ico" type="image/x-icon" />
 
     <link rel="stylesheet" href="/library/css/newVersion1/framework/bootstrap.css">
     <link rel="stylesheet" href="/library/css/newVersion1/framework/messenger.css">
@@ -32,7 +35,7 @@
 <body>
 <div class="header clearfix">
     <div class="left clearfix">
-        <a class="logo "><i></i><em>驴妈妈业务系统</em></a>
+        <a class="logo "><i></i><em>成长记</em></a>
     </div>
     <div class="right clearfix">
 	<#--<div class="search">-->

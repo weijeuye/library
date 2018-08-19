@@ -94,12 +94,12 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<!-- 与登录相关的请求 -->
-			<!--<mvc:exclude-mapping    path="/login" />
-			&lt;!&ndash; 以下是静态资源 &ndash;&gt;
+			<mvc:exclude-mapping    path="/login" />
+			<!--&lt;!&ndash; 以下是静态资源 &ndash;&gt;-->
 			<mvc:exclude-mapping path="/img/**" />
 			<mvc:exclude-mapping path="/css/**" />
 			<mvc:exclude-mapping path="/bootstrap/**" />
-			<mvc:exclude-mapping path="/js/**" />-->
+			<mvc:exclude-mapping path="/js/**" />
 
 			<bean id="loginInterceptor" class="com.weason.library.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
