@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>后台登录模板</title>
+    <title>成长记图书管理系统</title>
     <link rel="stylesheet" type="text/css" href="css/login/zui.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/login/login.css" media="all">
     <link href="css/login/animate.min.css" rel="stylesheet">
     <link href="css/login/font-awesome.min.css" rel="stylesheet">
     <style> body { background-image: url(css/images/login/4.jpg);}</style>
+
+    <link rel="icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/library/css/images/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
