@@ -69,6 +69,8 @@ public class UserAction {
     public Object addUser(Model model,HttpServletRequest request,BookUser user){
 
         model.addAttribute("user",user);
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/user/showAddUser";
     }
     @RequestMapping("/showUpdateUser")
@@ -82,6 +84,8 @@ public class UserAction {
         param.put("userId",userId);
         user=bookUserService.findBookUser(param);
         model.addAttribute("user",user);
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/user/showAddUser";
     }
 
@@ -124,5 +128,12 @@ public class UserAction {
         }else {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
+    }
+    @RequestMapping("/updatePassWord")
+    public  Object updatePassWord(HttpServletRequest request,Model model){
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
+        request.getSession().invalidate();
+        return   "login";
     }
 }

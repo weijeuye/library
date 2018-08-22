@@ -4,10 +4,8 @@
 
 <#include "/pages/base/head_meta.ftl"/>
 
-    <link rel="stylesheet" href="/library/css/ztree/zTreeStyle.css" >
-    <link rel="stylesheet" href="/library/css/ztree/ebk.css" >
-    <link rel="stylesheet" href="/library/css/novaDialog.css">
-    <link rel="stylesheet" href="http://pic.lvmama.com/min/index.php?f=/styles/lv/calendar.css,/styles/lv/buttons.css,/styles/lv/dialog.css,/styles/lv/icons.css">
+    <link rel="stylesheet" href="${basePath}/css/ztree/zTreeStyle.css" >
+    <link rel="stylesheet" href="${basePath}/css/ztree/ebk.css" >
 
 </head>
 <body>
@@ -78,7 +76,7 @@
 <#include "/pages/base/foot.ftl"/>
 </body>
 </html>
-<script type="text/javascript" src="/library/bootstrap/js/novaDialog.js" ></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/novaDialog.js" ></script>
 <script>
 var categoryPropListDialog,categoryPropGroupsDialog,branchListDialog;
 $(function(){
@@ -92,7 +90,7 @@ $("searchForm input[name='categoryName']").focus();
 
 //新增品类
 $("#new_button").bind("click",function(){
-    dialog("/library/book/showAddBookType.do", "新增图书分类", 800, "auto",function(){
+    dialog("${basePath}/book/showAddBookType.do", "新增图书分类", 800, "auto",function(){
         if(!$("#dataForm").validate().form()){
             return false;
         }
@@ -126,7 +124,7 @@ $("#new_button").bind("click",function(){
 //编辑基图书分类
 $("a.editCate").bind("click",function(){
     var bookTypeId=$(this).attr("data");
-    var url = "/library/book/showAddBookType.do?bookTypeId="+bookTypeId;
+    var url = "${basePath}/book/showAddBookType.do?bookTypeId="+bookTypeId;
 	dialog(url, "编辑基图书分类", 800, "auto",function(){
 	    if(!$("#dataForm").validate().form()){
 			return false;
@@ -139,7 +137,7 @@ $("a.editCate").bind("click",function(){
 	    var resultCode; 
 	    $.confirm("确认修改吗 ？", function () {
 		$.ajax({
-			url : "/library/book/updateBookType.do",
+			url : "${basePath}/book/updateBookType.do",
 			type : "post",
 			async: false,
 			data : $(".dialog #dataForm").serialize(),
@@ -155,7 +153,7 @@ $("a.editCate").bind("click",function(){
 });
  function updateBookType() {
      $.ajax({
-         url : "/library/book/addBookType.do",
+         url : "${basePath}/book/addBookType.do",
          type : "post",
          async: false,
          data : $(".dialog #dataForm").serialize(),

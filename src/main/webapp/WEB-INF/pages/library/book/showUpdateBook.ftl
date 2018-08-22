@@ -89,11 +89,11 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="/library/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="/library/js/jquery.barcode.js"> </script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.exedit.js"></script>
 
 
 <script>
@@ -111,18 +111,18 @@
             return false;
         }
         $.ajax({
-            url : "/library/book/updateBook.do",
+            url : "${basePath}/book/updateBook.do",
             type : "post",
             dataType : "json",
             //async : false,
             data : $("#uatoAddBookDialogDataForm").serialize(),
             success : function(result) {
                 if (result.code == "success") {
-                    alert(result.message);
+                    $.alert(result.message);
                     updateDialog.close();
                     window.location.reload();
                 } else {
-                    alert(result.message);
+                    $.alert(result.message);
                 }
             }
         });

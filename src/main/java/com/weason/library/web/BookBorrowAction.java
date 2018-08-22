@@ -107,7 +107,7 @@ public class BookBorrowAction extends BaseAction{
     }
 
     @RequestMapping(value = "/showBorrowBook")
-    public String showBorrowBook(Model model,Long userId) throws Exception {
+    public String showBorrowBook(Model model,Long userId,HttpServletRequest request) throws Exception {
         if(userId!=null){
             Map<String,Object> param=new HashMap<String, Object>();
             param.put("userId",userId);
@@ -117,6 +117,8 @@ public class BookBorrowAction extends BaseAction{
             bookBorrow.setBorrowTime(new Date());
             model.addAttribute("bookBorrow",bookBorrow);
         }
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/bookBorrow/showBorrowBook";
     }
 
@@ -161,7 +163,7 @@ public class BookBorrowAction extends BaseAction{
         return ResultMessage.UPDATE_SUCCESS_RESULT;
     }
     @RequestMapping(value = "/showBorrowBookAgain")
-    public String showBorrowBookAgain(Model model,Long userId,Long bookId,String isbn,Long borrowId) throws Exception {
+    public String showBorrowBookAgain(Model model,Long userId,Long bookId,String isbn,Long borrowId,HttpServletRequest request) throws Exception {
         if(bookId!=null || (userId!=null && isbn !=null) || borrowId!=null){
             Map<String,Object> param=new HashMap<String, Object>();
             param.put("userId",userId);
@@ -177,6 +179,8 @@ public class BookBorrowAction extends BaseAction{
             model.addAttribute("book",book);
             model.addAttribute("user",user);
         }
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/bookBorrow/showBorrowBookAgain";
     }
 

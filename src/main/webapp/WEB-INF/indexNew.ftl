@@ -3,16 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" name="renderer" content="webkit">
     <title>成长记图书管理系统</title>
-    <link rel="icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="${basePath}/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="${basePath}/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="${basePath}/css/images/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/bootstrap.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/messenger.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/messenger-theme-flat.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/vst.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/index.css">
-    <link rel="stylesheet" href="/library/css/newVersion1/framework/verify.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/bootstrap.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/messenger.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/messenger-theme-flat.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/vst.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/index.css">
+    <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/verify.css">
 
     <script type="text/javascript">
 
@@ -42,16 +42,16 @@
 	<#--<input type="text" placeholder="搜索...">-->
 	<#--<i></i>-->
 	<#--</div>-->
-        <a href='/super_back/push/task_input.zul' data-id="task_input" data-toggle="tooltip" data-placement="bottom" title="" data-name="新增任务" class="new-task"><i></i><em>新增任务</em></a>
+        <#--<a href='/super_back/push/task_input.zul' data-id="task_input" data-toggle="tooltip" data-placement="bottom" title="" data-name="新增任务" class="new-task"><i></i><em>新增任务</em></a>-->
         <div class="header-dropdown">
             <a class="header-dropdown-toggle">
                 <strong></strong><em>${(user.userName)!""}-${(user.userName)!""}</em><i></i>
             </a>
             <ul class="header-dropdown-menu">
-                <li class="nest-show"><a class="my-task" href='/super_back/log/viewTaskQuery.zul' data-id="viewTask" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的任务"><i></i><em>我的任务</em></a></li>
+              <#--  <li class="nest-show"><a class="my-task" href='/super_back/log/viewTaskQuery.zul' data-id="viewTask" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的任务"><i></i><em>我的任务</em></a></li>
                 <li class="nest-show"><a class="my-msg"href='/super_back/log/viewMessageQuery.zul' data-id="viewMessage" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的消息"><i></i><em>我的消息</em></a></li>
                 <li class="nest-show"><a class="my-info" href='/super_back/log/viewAnnounceQuery.zul' data-id="viewAnnounce" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的公告"><i></i><em>我的公告</em></a></li>
-                <li class="nest-show"><a class="my-nty" href='/pet_back/notification/notification_configure!myNotification.do' data-id="viewNotification" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的通知"><i></i><em>我的通知</em></a></li>
+                <li class="nest-show"><a class="my-nty" href='/pet_back/notification/notification_configure!myNotification.do' data-id="viewNotification" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的通知"><i></i><em>我的通知</em></a></li>-->
                 <li class="nest-show"><a class="my-pwd" href='/pet_back/perm_user/to_change_password.do' data-id="change_password" data-toggle="tooltip" data-placement="bottom" title="" data-name="修改密码"><i></i><em>修改密码</em></a></li>
             </ul>
         </div>
@@ -126,16 +126,16 @@
                     <dl class="nav nav-sidebar tab-system-management">
                         <dt><i></i><em title="学员管理">学员管理</em><b></b></dt>
                         <dd>
-                            <a data-id="1"  href="/library/user/findUsers.do" permId="1"  data-name="学员信息管理">学员信息管理</a>
-                            <a data-id="2"  href="/library/bookBorrow/findBookBorrows.do" permId="2"  data-name="借阅管理">借阅管理</a>
+                            <a data-id="1"  href="${basePath}/user/findUsers.do" permId="1"  data-name="学员信息管理">学员信息管理</a>
+                            <a data-id="2"  href="${basePath}/bookBorrow/findBookBorrows.do" permId="2"  data-name="借阅管理">借阅管理</a>
                         </dd>
                     </dl>
 
                     <dl class="nav nav-sidebar tab-content-management">
                         <dt><i></i><em title="图书管理">图书管理</em><b></b></dt>
                         <dd>
-                            <a data-id="3"  href="/library/book/findBookTypeList.do" permId="3"  data-name="图书类别信息">图书类别信息</a>
-                            <a data-id="4"  href="/library/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>
+                            <a data-id="3"  href="${basePath}/book/findBookTypeList.do" permId="3"  data-name="图书类别信息">图书类别信息</a>
+                            <a data-id="4"  href="${basePath}/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>
                         </dd>
                     </dl>
 				<#--<#list menuList as obj>
@@ -187,14 +187,13 @@
                     <div class="container theme-showcase">
 
                         <div class="jumbotron">
-                            <p style="font-size:25px;">新版使用小贴士</p>
+                            <p style="font-size:25px;">成长记使用小贴士</p>
                             <ul>
                                 <li style="font-size:19px;">左侧边栏可以缩进、展开</li>
                                 <li style="font-size:19px;">左键点击左侧边栏内的页面，会直接打开新标签页。</li>
                                 <li style="font-size:19px;">每种页面只能打开一个标签页，在左侧边栏点击的页面如果已打开，则会自动定位到之前已打开的标签页位置。</li>
                                 <li style="font-size:19px;">右键单击标签，可以选择刷新该标签页或关闭其他标签页。</li>
-                                <li style="font-size:19px;">旧版样式中顶栏上的“修改密码”、“我的公告”、“我的任务”、“我的消息”，现在在右上方用户名/姓名的下拉菜单里。</li>
-                                <li style="font-size:19px;">可以返回旧版样式，但是返回后，在新版样式中打开的标签页全都会消失。</li>
+
                             </ul>
 
 
@@ -251,10 +250,11 @@
     <li class="JS_close_other_tab"><a>关闭其他标签页</a></li>
 </ul>
 
-<script src="http://pic.lvmama.com/js/backstage/vst/framework/jquery-1.11.3.min.js"></script>
-<script src="/library/js/newVersion1/bootstrap.js"></script>
-<script src="/library/js/newVersion1/index.js"></script>
-<script src="/library/js/newVersion1/messenger.min.js"></script>
+<#--<script src="http://pic.lvmama.com/js/backstage/vst/framework/jquery-1.11.3.min.js"></script>-->
+<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.min.js"></script>
+<script src="${basePath}/js/newVersion1/bootstrap.js"></script>
+<script src="${basePath}/js/newVersion1/index.js"></script>
+<script src="${basePath}/js/newVersion1/messenger.min.js"></script>
 
 <#--<script src="/pet_back/js/newVersion/messenger.min.js"></script>-->
 </body>

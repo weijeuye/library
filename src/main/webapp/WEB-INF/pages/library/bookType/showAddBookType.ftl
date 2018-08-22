@@ -36,9 +36,9 @@
     </tbody>
     </table>
 </form>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.exedit.js"></script>
 <script>
 
     //搜索表单中显示组织树供用户选择

@@ -3,10 +3,10 @@
 <head>
 
 <#include "/pages/base/head_meta.ftl"/>
-    <link rel="stylesheet" href="/library/css/ztree/zTreeStyle.css" >
-    <link rel="stylesheet" href="/library/css/ztree/ebk.css" >
+    <link rel="stylesheet" href="${basePath}/css/ztree/zTreeStyle.css" >
+    <link rel="stylesheet" href="${basePath}/css/ztree/ebk.css" >
    <#-- <link rel="stylesheet" href="/library/css/novaDialog.css">-->
-	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
+	<link type="text/css" href="${basePath}/js/My97DatePicker/skin/WdatePicker.css">
     <style type="text/css">
 
     </style>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="iframe_search">
-<form method="post" action='/library/book/findBooks.do' id="searchForm">
+<form method="post" action='${basePath}/book/findBooks.do' id="searchForm">
     <input id="nodeList" type="hidden"  value=${nodeList}>
     <table class="s_table">
         <tbody>
@@ -178,10 +178,10 @@
 <#include "/pages/base/foot.ftl"/>
 </body>
 </html>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
-<script type="text/javascript" src="/library/js/jquery.barcode.js"> </script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
 <script>
 //属性列表弹出框对象，不要有重名的
 var dictPropDefListDialog, dictPropListDialog, updateDialog,updateDictPropDialog;
@@ -259,20 +259,20 @@ $(function(){
 	});
     //新增
     $("#addUser_button").on('click',function(){
-        var url = "/library/book/showAddBook.do";
+        var url = "${basePath}/book/showAddBook.do";
         updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:1200});
     });
 
     //扫描新增
     $("#atuoAddBook_button").on('click',function(){
-        var url = "/library/book/showAddBook.do";
+        var url = "${basePath}/book/showAddBook.do";
         updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:1200});
     });
 
     //修改
     $("a.editDict").on('click',function(){
         var bookId = $(this).attr("data");
-        var url = "/library/book/showUpdateBook.do?bookId="+bookId;
+        var url = "${basePath}/book/showUpdateBook.do?bookId="+bookId;
         updateDialog = new xDialog(url, {}, {title:"修改书籍信息",width:1200});
     });
 
@@ -283,7 +283,7 @@ $(function(){
 	$("a.editFlag").bind("click",function(){
 		 var bookId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/library/book/updateBookState.do?bookId="+bookId+"&isValid="+isValid;
+		 var url = "${basePath}/book/updateBookState.do?bookId="+bookId+"&isValid="+isValid;
 		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
@@ -297,11 +297,6 @@ $(function(){
 	     });
 	});
 	
-	// Comphoto
-	$("a.showPhoto").bind("click",function(){
-		var url="/vst_back/pub/comphoto/findComPhotoList.do?objectId="+$(this).attr("data")+"&objectType=DICT_ID";
-		new xDialog(url,{},{title:"图片列表",iframe:true,width:1000});
-	});
 
 	function confirmAndRefresh(result){
 		if (result.code == "success") {

@@ -89,12 +89,12 @@
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="testButton">测试</button>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="/library/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
 <#--<script type="text/javascript" src="/library/bootstrap/js/jquery-1.7.2.min.js"> </script>-->
-<script type="text/javascript" src="/library/js/jquery.barcode.js"> </script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.exedit.js"></script>
 <#--<script type="text/javascript" src="http://pic.lvmama.com/js/new_v/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="/library/bootstrap/js/novaDialog.js" ></script>-->
 
@@ -115,7 +115,7 @@
         $("#isbn").val(code);
         //校验库存
         $.ajax({
-            url : "/library/book/findBookByIsbn.do?isbn="+code,
+            url : "${basePath}/book/findBookByIsbn.do?isbn="+code,
             type : "get",
             dataType : "json",
             //async : false,
@@ -136,7 +136,7 @@
     });
     function findIsbnInfo(code){
         $.ajax({
-            url : "/library/book/findIsbnInfo.do?isbn="+code,
+            url : "${basePath}/book/findIsbnInfo.do?isbn="+code,
             type : "get",
             dataType : "json",
             //async : false,
@@ -148,7 +148,7 @@
                     drawHtml(book);
 
                 } else {
-                    alert("无法查阅到本图书,请手动添加！");
+                    $.alert("无法查阅到本图书,请手动添加！");
                 }
             }
         });
@@ -198,12 +198,12 @@
     
     //保存
     $("#saveButton").on("click", function() {
-        debugger;
+
         if(!$("#uatoAddBookDialogDataForm").validate().form()){
             return false;
         }
         $.ajax({
-            url : "/library/book/saveBook.do",
+            url : "${basePath}/book/saveBook.do",
             type : "post",
             dataType : "json",
             //async : false,

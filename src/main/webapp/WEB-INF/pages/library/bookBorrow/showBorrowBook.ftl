@@ -88,11 +88,11 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="/library/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="/library/js/jquery.barcode.js"> </script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="/library/js/ztree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.exedit.js"></script>
 
 
 <script>
@@ -120,7 +120,7 @@
             return;
         }
         $.ajax({
-            url : "/library/bookBorrow/borrowBook.do",
+            url : "${basePath}/bookBorrow/borrowBook.do",
             type : "post",
             dataType : "json",
             //async : false,
@@ -145,7 +145,7 @@
         }
 
         $.ajax({
-            url : "/library/book/findBookByIsbn.do",
+            url : "${basePath}/book/findBookByIsbn.do",
             type : "get",
             dataType : "json",
             //async : false,

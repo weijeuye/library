@@ -89,8 +89,8 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="/library/js/My97DatePicker/WdatePicker.js"</script>
-<script type="text/javascript" src="/library/bootstrap/js/jquery-1.7.2.min.js" </script>
+<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"</script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
 <script>
     
     $("#dataForm").validate({
@@ -133,18 +133,18 @@
             return false;
         }
         $.ajax({
-            url : "/library/user/saveUser.do",
+            url : "${basePath}/user/saveUser.do",
             type : "post",
             dataType : "json",
             //async : false,
             data : $("#dataForm").serialize(),
             success : function(result) {
                 if (result.code == "success") {
-                    alert(result.message);
+                    $.alert(result.message);
                     updateDialog.close();
                     window.location.reload();
                 } else {
-                    alert(result.message);
+                    $.alert(result.message);
                 }
             }
         });

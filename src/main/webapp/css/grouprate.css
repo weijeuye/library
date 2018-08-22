@@ -64,13 +64,13 @@ i {
   .guest-num-container th {
     height: 30px; }
     .guest-num-container th i {
-      background: url("images/icon-arrow-pink.png") no-repeat center;
+      background: url("/library/images/icon-arrow-pink.png") no-repeat center;
       display: inline-block;
       height: 7px;
       width: 7px;
       transition: all 0.3s; }
     .guest-num-container th.down i {
-      background: url("images/icon-arrow-pink-down.png") no-repeat center;
+      background: url("/library/images/icon-arrow-pink-down.png") no-repeat center;
       transform: rotateY(180deg); }
   .guest-num-container td {
     height: 50px; }

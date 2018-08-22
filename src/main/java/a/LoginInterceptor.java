@@ -1,4 +1,4 @@
-package com.weason.library.interceptor;
+package a;
 
 import com.weason.library.po.BookUser;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 请求判断是否登录拦截器
  */
-public class LoginInterceptor  implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println(httpServletRequest.getRequestURI());

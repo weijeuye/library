@@ -89,7 +89,8 @@
 
 <!-- 底部\\ -->
 <div class="footer"></div><!-- //底部 -->
-<script src="http://pic.lvmama.com/js/new_v/jquery-1.7.min.js"></script>
+<#--<script src="http://pic.lvmama.com/js/new_v/jquery-1.7.min.js"></script>-->
+<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.min.js"></script>
 <script src="${basePath}/js/panel-custom.js"></script>
 <script>
 </script>

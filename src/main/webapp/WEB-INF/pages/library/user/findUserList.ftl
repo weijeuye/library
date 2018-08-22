@@ -3,7 +3,7 @@
 <head>
 
 <#include "/pages/base/head_meta.ftl"/>
-	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
+	<link type="text/css" href="${basePath}/js/My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
 <div class="iframe_header">
@@ -15,7 +15,7 @@
 </div>
 
 <div class="iframe_search">
-<form method="post" action='/library/user/findUsers.do' id="searchForm">
+<form method="post" action='${basePath}/user/findUsers.do' id="searchForm">
     <table class="s_table">
         <tbody>
             <tr>
@@ -142,21 +142,21 @@ $(function(){
 	});
     //新增
     $("#addUser_button").on('click',function(){
-        var url = "/library/user/addUser.do";
+        var url = "${basePath}/user/addUser.do";
         updateDialog = new xDialog(url, {}, {title:"新增用户信息",width:900});
     });
 
     //修改
     $("a.editDict").on('click',function(){
         var userId = $(this).attr("data");
-        var url = "/library/user/showUpdateUser.do?userId="+userId;
+        var url = "${basePath}/user/showUpdateUser.do?userId="+userId;
         updateDialog = new xDialog(url, {}, {title:"修改用户信息",width:900});
     });
 
     //借书
     $("a.borrowBook").on('click',function(){
         var userId = $(this).attr("data");
-        var url = "/library/bookBorrow/showBorrowBook.do?userId="+userId;
+        var url = "${basePath}/bookBorrow/showBorrowBook.do?userId="+userId;
         updateDialog = new xDialog(url, {}, {title:"借阅图书",width:1200});
     });
 
@@ -166,7 +166,7 @@ $(function(){
 	$("a.editFlag").bind("click",function(){
 		 var userId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/library/user/updateStatus.do?userId="+userId+"&isValid="+isValid;
+		 var url = "${basePath}/user/updateStatus.do?userId="+userId+"&isValid="+isValid;
 		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){

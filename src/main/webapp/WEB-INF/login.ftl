@@ -43,7 +43,8 @@
     </div>
 </div>
 </body>
-<script src="http://pic.lvmama.com/js/new_v/jquery-1.7.min.js"></script>
+<#--<script src="http://pic.lvmama.com/js/new_v/jquery-1.7.min.js"></script>-->
+<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.min.js"></script>
 <script type="text/javascript">
     $(".btn-primary").on("click",function () {
         if($("#userAccount").val()==null || $("#userAccount").val()==''){
@@ -56,7 +57,7 @@
         }
         $.ajax({
             type:"post",
-            url:"/library/login",
+            url:"${basePath}/login.do",
             data:$("#loginForm").serialize(),
             dataType:"json",
             success:function (data) {

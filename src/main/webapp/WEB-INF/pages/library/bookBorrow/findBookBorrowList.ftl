@@ -3,7 +3,7 @@
 <head>
 
 <#include "/pages/base/head_meta.ftl"/>
-	<link type="text/css" href="library/js/My97DatePicker/skin/WdatePicker.css">
+	<link type="text/css" href="${basePath}/js/My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
 <div class="iframe_header">
@@ -15,7 +15,7 @@
 </div>
 
 <div class="iframe_search">
-<form method="post" action='/library/bookBorrow/findBookBorrows.do' id="searchForm">
+<form method="post" action='${basePath}/bookBorrow/findBookBorrows.do' id="searchForm">
     <table class="s_table">
         <tbody>
             <tr>
@@ -144,7 +144,7 @@ $(function(){
         var userId = $(this).attr("data2");
         var isbn=$(this).attr("data3");
         var borrowId=$(this).attr("data1");
-        var url = "/library/bookBorrow/showBorrowBookAgain.do?bookId="+bookId+"&userId="+userId+"&isbn="+isbn+"&borrowId="+borrowId;
+        var url = "${basePath}/bookBorrow/showBorrowBookAgain.do?bookId="+bookId+"&userId="+userId+"&isbn="+isbn+"&borrowId="+borrowId;
         updateDialog = new xDialog(url, {}, {title:"续借信息",width:900});
     });
 
@@ -152,7 +152,7 @@ $(function(){
     $("a.editDict").on('click',function(){
         var bookBorrowId = $(this).attr("data");
         var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-        var url = "/library/bookBorrow/returnBook.do?bookBorrowId="+bookBorrowId;
+        var url = "${basePath}/bookBorrow/returnBook.do?bookBorrowId="+bookBorrowId;
         var   msg = "是否确认还书？";
         $.confirm(msg, function () {
             $.get(url, function(data){
@@ -173,7 +173,7 @@ $(function(){
 	$("a.editFlag").bind("click",function(){
 		 var userId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
-		 var url = "/library/user/showUpdateUser.do?userId="+userId+"&isValid="+isValid;
+		 var url = "${basePath}/user/showUpdateUser.do?userId="+userId+"&isValid="+isValid;
 		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
@@ -187,11 +187,7 @@ $(function(){
 	     });
 	});
 	
-	// Comphoto
-	$("a.showPhoto").bind("click",function(){
-		var url="/vst_back/pub/comphoto/findComPhotoList.do?objectId="+$(this).attr("data")+"&objectType=DICT_ID";
-		new xDialog(url,{},{title:"图片列表",iframe:true,width:1000});
-	});
+
 
 	function confirmAndRefresh(result){
 		if (result.code == "success") {

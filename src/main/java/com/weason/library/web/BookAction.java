@@ -59,12 +59,13 @@ public class BookAction extends BaseAction{
         model.addAttribute("pageParam", pageParam);
         model.addAttribute("categoryName", bookTypeName);
         model.addAttribute("page", pageParam.getPage().toString());
-
+        String basePath = HttpUtils.getBasePath(req);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/bookType/findbookTyeList";
     }
 
     @RequestMapping(value = "/showAddBookType")
-    public String showAddBookType(Model model, Long bookTypeId) throws Exception {
+    public String showAddBookType(Model model, Long bookTypeId,HttpServletRequest request) throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         parameters.put("bookTypeId", bookTypeId);
@@ -78,6 +79,8 @@ public class BookAction extends BaseAction{
         model.addAttribute("bookType", bookType);
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/bookType/showAddBookType";
     }
 
@@ -167,6 +170,8 @@ public class BookAction extends BaseAction{
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/book/showAddBook";
     }
     @RequestMapping(value = "/showUpdateBook")
@@ -181,6 +186,8 @@ public class BookAction extends BaseAction{
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         return "/pages/library/book/showUpdateBook";
     }
 

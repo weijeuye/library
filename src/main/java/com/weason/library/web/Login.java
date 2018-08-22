@@ -1,7 +1,6 @@
 package com.weason.library.web;
 
 import com.weason.library.po.BookUser;
-import com.weason.library.po.ReaderInfo;
 import com.weason.library.service.BookUserService;
 import com.weason.util.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +58,8 @@ public class Login {
     }
     @RequestMapping("/loginout")
     private Object loginout(Model model,HttpServletRequest request,HttpServletResponse response){
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
         request.getSession().invalidate();
        return   "login";
     }
