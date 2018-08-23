@@ -29,6 +29,8 @@ public class ResultMessage implements Serializable {
 
 	public static final ResultMessage PARAM_EXCEPTION_RESULT = new ResultMessage(ERROR, "参数异常");
 	public static final ResultMessage BORROW_EXCEPTION_RESULT = new ResultMessage(ERROR, "该学员已经借过本书且未归还，请仔细核对！");
+	public static final ResultMessage OLDPASSWORD_ISNOT_RIGHT = new ResultMessage(ERROR, "输入的原始密码错误，请仔细核对！");
+	public static final ResultMessage UPDATE_PASSWORD_SUCCESS = new ResultMessage(SUCCESS, "密码修改成功！");
 	
 
 	private String code;

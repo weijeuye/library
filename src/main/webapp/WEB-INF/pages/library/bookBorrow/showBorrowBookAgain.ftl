@@ -12,7 +12,7 @@
         <tr>
 
             <td class="p_label"><i class="cc1">*</i>ISBN号：</td>
-            <td><input type="text" id="isbn" name="isbn" required="true"  class="searchInput" value="${book.isbn!''}" ></td>
+            <td><input type="text" id="isbn" name="isbn" required="true"   value="${book.isbn!''}" disabled></td>
         </tr>
         <tr>
             <td class="p_label">借阅人：</td>
@@ -95,7 +95,7 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">续借</button>
 
-<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
@@ -137,7 +137,7 @@
                     updateDialog.close();
                     window.location.reload();
                 } else {
-                    alert(result.message);
+                    $.alert(result.message);
                 }
             }
         });

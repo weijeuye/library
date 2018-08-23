@@ -31,10 +31,10 @@
                         </#if>
                     </select>
                 </td>
-                <td class="p_label">出生日期：</td>
+                <td class="p_label"><i class="cc1">*</i>出生日期：</td>
                 <td>
                    <#-- ${(user.birthday?string("yyyy-MM-dd"))!''}-->
-                    <input type="text" id="birthday" name="birthday" errorele="searchValidate" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${user.birthday!''}"/>
+                    <input type="text" id="birthday" name="birthday" errorele="searchValidate" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${user.birthday!''}" required="true"/>
                 </td>
             </tr>
 
@@ -76,7 +76,7 @@
                 <td>
                     <input type="text"  id="address" name="address" errorele="searchValidate" value="${user.address!''}" maxlength="60">
                 </td>
-                <td class="p_label"><i class="cc1">*</i>备注：</td>
+                <td class="p_label">备注：</td>
                 <td>
                     <input type="text"  id="memo" name="memo" errorele="searchValidate" value="${user.memo!''}" maxlength="100">
                 </td>
@@ -89,7 +89,7 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"</script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
 <script>
     

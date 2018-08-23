@@ -89,7 +89,7 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>

@@ -164,15 +164,26 @@ public class BookAction extends BaseAction{
         return "/pages/library/book/findBookList";
     }
 
-    @RequestMapping(value = "/showAddBook")
-    public String showAddBook(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/showAddBookByAuto")
+    public String showAddBookByAuto(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         String basePath = HttpUtils.getBasePath(request);
         model.addAttribute("basePath",basePath);
-        return "/pages/library/book/showAddBook";
+        return "/pages/library/book/showAddBookByAuto";
+    }
+
+    @RequestMapping(value = "/showAddBookBySelf")
+    public String showAddBookBySelf(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
+        nodeList = findBookTypeNodeList();
+        model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
+        return "/pages/library/book/showAddBookBySelf";
     }
     @RequestMapping(value = "/showUpdateBook")
     public String showUpdateBook(Model model, HttpServletRequest request, HttpServletResponse response,Long bookId) throws Exception {
@@ -194,28 +205,28 @@ public class BookAction extends BaseAction{
     @RequestMapping(value = "/saveBook")
     @ResponseBody
     public Object saveBook(Book book){
-        if(book ==null){
+        if(book ==null || StringUtils.isEmpty(book.getIsbn())){
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         Map<String,Object> param=new HashMap<String,Object>();
         //数据库有isbn 则修改数量
-        if(!StringUtils.isEmpty(book.getIsbn())){
             param.put("isbn",book.getIsbn());
             Book currentBook =bookService.findBookByParam(param);
             if(currentBook!=null && currentBook.getBookNum() > 0){
                 param.clear();
                 param.put("bookId",currentBook.getBookId());
                 param.put("bookNum",currentBook.getBookNum()+1);
+                param.put("bookLeftNum",currentBook.getBookLeftNum()+1);
                 Integer updateCount=bookService.updateBookById(param);
                 if(updateCount > 0){
                    return ResultMessage.ADD_SUCCESS_RESULT;
                 }else {
                     return ResultMessage.ADD_FAIL_RESULT;
                 }
-
-            }
-        }else{
+            }else{
             //数据库 没有isbn 新增
+                //初始化在库数量等于总量
+             book.setBookLeftNum(book.getBookNum());
             Integer count=bookService.addBook(book);
             if(count > 0){
                 return  ResultMessage.ADD_SUCCESS_RESULT;

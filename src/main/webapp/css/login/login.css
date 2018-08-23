@@ -10,7 +10,7 @@ img{border:0}
 .cf:after,.cf:before{display:table;content:""}
 .cf:after{clear:both}
 
-#main-content{background:url(../images/dot.png);height:100%}
+#main-content{background:url(/library/css/images/login/4.jpg);height:100%}
 #main-box{width:100%;height:100%;z-index:1;background-color:rgba(0,0,0,.95);background-image:-webkit-linear-gradient(left,transparent 0,#1b1f27 100%);background-image:-o-linear-gradient(left,transparent 0,#1b1f27 100%);background-image:linear-gradient(to right,transparent 0,#1b1f27 100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#ff1b1f27', GradientType=1);position:fixed;top:0;right:0;bottom:0;left:0;z-index:1;opacity:.3}
 
 
@@ -38,7 +38,7 @@ img{border:0}
 .login-form .login-btn .in{display:none}
 .login-form .log-in .in{display:inline-block}
 .login-form .log-in .on{display:none}
-.icon-loading{display:inline-block;margin-right:5px;width:16px;height:16px;vertical-align:-3px;background:url(../images/loading_icon.gif) no-repeat 0 0}
+.icon-loading{display:inline-block;margin-right:5px;width:16px;height:16px;vertical-align:-3px;background:url(/library/css/images/loading.gif) no-repeat 0 0}
 input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #fff inset}
 img.verifyimg{border-radius:3px;cursor:pointer;position:absolute;right:0;z-index:99;border-radius:0 4px 4px 0}
 .input-group .form-control:not(:first-child):not(:last-child){border-radius:0 4px 4px 0}

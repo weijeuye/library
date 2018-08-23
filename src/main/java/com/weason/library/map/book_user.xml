@@ -29,13 +29,18 @@
         <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
         <result column="point" property="point" jdbcType="INTEGER"/>
         <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="borrowNum" property="borrowNum" jdbcType="INTEGER"/>
 
     </resultMap>
 
     <select id="queryBookUsers" resultMap="BaseResultMap"  parameterType="java.util.Map">
         <include refid="basic.pageSearchHead"/>
-        select * FROM  library.book_user bu where
-        bu.is_valid=#{isvalid,jdbcType=VARCHAR}
+        select bu.*,a.borrowNum FROM  library.book_user bu
+        LEFT JOIN
+        (SELECT bb.user_id ,COUNT(*) AS borrowNum FROM library.`book_borrow` bb WHERE 1=1 GROUP BY bb.user_id) a
+        ON bu.userId=a.user_id
+        where
+        1=1
         <if test="userAccount !=null and userAccount !='' " >
             and bu.user_account =#{userAccount,jdbcType=VARCHAR}
         </if>
@@ -71,6 +76,9 @@
         <if test="userType !=null and userType !='' ">
             and bu.user_type =#{userType,jdbcType=VARCHAR}
         </if>
+        <if test="isvalid !=null and isvalid !='' ">
+            and bu.is_valid =#{isvalid,jdbcType=VARCHAR}
+        </if>
 
         <include refid="basic.pageSearchFoot"/>
     </select>
@@ -81,8 +89,8 @@
         <if test="userId !=null and userId !=''">
             and b.userId=#{userId,jdbcType=INTEGER}
         </if>
-        <if test="userName !=null and userName !=''">
-            and b.user_account=#{userName,jdbcType=VARCHAR}
+        <if test="userAccount !=null and userAccount !=''">
+            and b.user_account=#{userAccount,jdbcType=VARCHAR}
 
         </if>
         <if test="password !=null and password !=''">
@@ -92,7 +100,7 @@
 
     <select id="findBookUsersCount" resultType="java.lang.Integer" >
         select count(*) FROM  library.book_user bu WHERE
-        bu.is_valid=#{isvalid,jdbcType=VARCHAR}
+        1=1
         <if test="userAccount !=null and userAccount !='' " >
             and bu.user_account =#{userAccount,jdbcType=VARCHAR}
         </if>
@@ -125,6 +133,9 @@
         </if>
         <if test="userType !=null and userType !='' ">
             and bu.user_type =#{userType,jdbcType=VARCHAR}
+        </if>
+        <if test="isvalid !=null and isvalid !='' ">
+            and bu.is_valid =#{isvalid,jdbcType=VARCHAR}
         </if>
     </select>
 
@@ -161,7 +172,7 @@
              bu.school =#{school,jdbcType=VARCHAR},
         </if>
         <if test="className !=null and className !='' ">
-             bu.className =#{className,jdbcType=VARCHAR},
+             bu.class_name =#{className,jdbcType=VARCHAR},
         </if>
         <if test="motherTelephone !=null and motherTelephone !='' ">
              bu.mother_telephone =#{motherTelephone,jdbcType=VARCHAR},
@@ -169,13 +180,20 @@
         <if test="fatherTelephone !=null and fatherTelephone !='' ">
              bu.father_telephone =#{fatherTelephone,jdbcType=VARCHAR},
         </if>
-      <if test="isValid !=null and isValid !=''">
+        <if test="isValid !=null and isValid !=''">
           bu.is_valid=#{isValid,jdbcType=VARCHAR},
-      </if>
+        </if>
+        <if test="userPassword !=null and userPassword !=''">
+            bu.user_password=#{userPassword,jdbcType=VARCHAR},
+        </if>
       bu.update_time = sysdate() WHERE bu.userId=#{userId,jdbcType=INTEGER}
+        <if test="userAccount !=null and userAccount !=''">
+           and  bu.user_account=#{userAccount,jdbcType=VARCHAR}
+        </if>
     </update>
     <delete id="deleteBookeUserById" parameterType="java.lang.Long">
-        delete from library.book_user bu where bu.userId=#{userId,jdbc=INTEGER}
+        delete from library.book_user bu where
+        bu.userId=#{userId,jdbc=INTEGER}
     </delete>
     <insert id="addBookUser" parameterType="com.weason.library.po.BookUser">
       insert into library.book_user

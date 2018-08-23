@@ -13,4 +13,5 @@ public interface BookUserService {
     public Integer addBookUser(BookUser bookUser);
     public Integer updateBookUser(BookUser bookUser);
     public Integer deleteBookUser(Long userId);
+    public BookUser findBookUserByPassword(Map<String,Object> param);
 }

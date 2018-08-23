@@ -43,7 +43,7 @@
         	<th>id</th>
             <th>分类名称</th>
             <th>上级分类</th>
-            <th>分类等级</th>
+         <#--   <th>分类等级</th>-->
 			<th>操作</th>
             </tr>
         </thead>
@@ -53,7 +53,7 @@
 			<td>${bookType.bookTypeId!''} </td>
 			<td>&nbsp;&nbsp;${bookType.bookTypeName!''} </td>
 			<td>&nbsp;&nbsp;${bookType.bookTypeParentName!''} </td>
-			<td>${bookType.levelCode!''} </td>
+		<#--	<td>${bookType.levelCode!''} </td>-->
 			<td class="oper">
                     <a class="editCate" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑</a>
                     <#--<a class="editBranch" href="javascript:void(0);" data="${bookType.bookTypeId!''}" >编辑规格</a>-->

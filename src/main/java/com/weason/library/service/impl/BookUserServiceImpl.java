@@ -58,4 +58,9 @@ public class BookUserServiceImpl implements BookUserService {
         Integer count = bookUserDao.deleteBookUserById(userId);
         return count;
     }
+
+    @Override
+    public BookUser findBookUserByPassword(Map<String, Object> param) {
+        return bookUserDao.findBookUserByPassword(param);
+    }
 }

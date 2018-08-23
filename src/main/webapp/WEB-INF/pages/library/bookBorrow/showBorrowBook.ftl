@@ -10,7 +10,7 @@
         <tr>
 
             <td class="p_label"><i class="cc1">*</i>ISBN号：</td>
-            <td><input type="text" id="isbn" name="isbn" required="true"  class="searchInput" value="" ></td>
+            <td><input type="text" id="isbn" name="isbn" required="true"  class="searchInput" value="" placeholder="请扫描要借的书籍"></td>
             <td class="s_label"><a class="btn btn_cc1" id="findBook_button">查询</a></td>
         </tr>
         <tr>
@@ -88,7 +88,7 @@
 </form>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.excheck.js"></script>
@@ -127,7 +127,7 @@
             data : $("#borrowBookForm").serialize(),
             success : function(result) {
                 if (result.code == "success") {
-                    $.alert(result.message);
+                    alert(result.message);
                     updateDialog.close();
                     window.location.reload();
                 } else {
@@ -156,7 +156,7 @@
                    /* updateDialog.close();
                     window.location.reload();*/
                 } else {
-                    alert("未查询到改书,请检查isbn号是否正确！");
+                    $.alert("未查询到改书,请检查isbn号是否正确！");
                 }
             }
         });

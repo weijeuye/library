@@ -2,6 +2,7 @@ package com.weason.library.web;
 
 import com.weason.library.po.BookUser;
 import com.weason.library.service.BookUserService;
+import com.weason.library.vo.UpdatePasswordVo;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
 import com.weason.util.ResultMessage;
@@ -34,7 +35,7 @@ public class UserAction {
             parameters.put("gender",queryParam.getGender());
         }
         model.addAttribute("queryParam",queryParam);
-        parameters.put("isvalid","Y");
+        //parameters.put("isvalid","Y");
         parameters.put("userType","u");
         int count =bookUserService.findBookUsersCount(parameters);
         // 分页
@@ -129,11 +130,36 @@ public class UserAction {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
     }
-    @RequestMapping("/updatePassWord")
-    public  Object updatePassWord(HttpServletRequest request,Model model){
+    @RequestMapping("/showUpdatePassWord")
+    public  String showUpdatePassWord(HttpServletRequest request,Model model,BookUser user,HttpServletResponse response){
         String basePath = HttpUtils.getBasePath(request);
         model.addAttribute("basePath",basePath);
-        request.getSession().invalidate();
-        return   "login";
+        BookUser loginUser=(BookUser) request.getSession().getAttribute("library_user_session");
+
+        if(user!=null ){
+            model.addAttribute("user",loginUser);
+        }
+        return   "/pages/library/user/showUpdatePassword";
+    }
+
+    @RequestMapping("/updatePassWord")
+    @ResponseBody
+    public  Object updatePassWord(HttpServletRequest request, UpdatePasswordVo passwordVo){
+        if(passwordVo.getBookUser() ==null || passwordVo.getOldPassword()==null || passwordVo.getNewPassword()==null){
+           return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        BookUser user=passwordVo.getBookUser();
+        Map<String,Object> param=new HashMap<String,Object>();
+        param.put("password",passwordVo.getOldPassword());
+        param.put("userId",user.getUserId());
+        param.put("userAccount",user.getUserAccount());
+        BookUser userdb=bookUserService.findBookUserByPassword(param);
+        if(userdb ==null){
+            return ResultMessage.OLDPASSWORD_ISNOT_RIGHT;
+        }
+        userdb.setUserPassword(passwordVo.getNewPassword());
+        bookUserService.updateBookUser(userdb);
+
+        return   ResultMessage.UPDATE_PASSWORD_SUCCESS;
     }
 }

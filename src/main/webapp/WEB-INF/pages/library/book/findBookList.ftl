@@ -91,7 +91,7 @@
              <tr position:absolute;right:30px;>
                 <div>
                     <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
-                    <td class="s_label"><a class="btn btn_cc1" id="addUser_button">新增</a></td>
+                    <td class="s_label"><a class="btn btn_cc1" id="addUser_button">手动新增</a></td>
                     <td class="s_label"><a class="btn btn_cc1" id="atuoAddBook_button">扫描新增</a></td>
                 </div>
 
@@ -121,7 +121,6 @@
                 <th>是否在库</th>
                 <th>价格</th>
                 <th>ISBN</th>
-                <th>语言</th>
                 <th>简介</th>
                 <th>是否有效</th>
                 <th>编辑</th>
@@ -134,7 +133,7 @@
 					<td>${book.bookTypeName!''} </td>
 					<td>${book.bookAuthor!'未知'} </td>
                     <td>${book.bookPub!'未知'} </td>
-                    <td>${book.bookPubTime?string("yyyy-MM-dd")} </td>
+                    <td>${book.bookPubTime?string("yyyy-MM-dd")!''} </td>
                     <td>${book.bookNum!''} </td>
                     <td>${book.bookLeftNum!''} </td>
 					<td>
@@ -146,7 +145,6 @@
 					</td>
                     <td>${book.bookPrice!''} </td>
                     <td>${book.isbn!''} </td>
-                    <td>${book.bookLanguage!''} </td>
                     <td class="autocut" style="white-space:nowrap;overflow: hidden;text-overflow:ellipsis" title="${book.bookIntroduction!''}">${book.bookIntroduction!''} </td>
                     <td>
                         <#if book.isValid?? && book.isValid == 'Y'>
@@ -259,13 +257,13 @@ $(function(){
 	});
     //新增
     $("#addUser_button").on('click',function(){
-        var url = "${basePath}/book/showAddBook.do";
+        var url = "${basePath}/book/showAddBookBySelf.do";
         updateDialog = new xDialog(url, {}, {title:"手动新增书籍",width:1200});
     });
 
     //扫描新增
     $("#atuoAddBook_button").on('click',function(){
-        var url = "${basePath}/book/showAddBook.do";
+        var url = "${basePath}/book/showAddBookByAuto.do";
         updateDialog = new xDialog(url, {}, {title:"自动新增书籍",width:1200});
     });
 

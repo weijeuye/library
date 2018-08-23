@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>成长记图书管理系统</title>
-    <link rel="stylesheet" type="text/css" href="css/login/zui.css" media="all">
-    <link rel="stylesheet" type="text/css" href="css/login/login.css" media="all">
-    <link href="css/login/animate.min.css" rel="stylesheet">
-    <link href="css/login/font-awesome.min.css" rel="stylesheet">
-    <style> body { background-image: url(css/images/login/4.jpg);}</style>
+    <link rel="stylesheet" type="text/css" href="${basePath}/css/login/zui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="${basePath}/css/login/login.css" media="all">
+    <link href="${basePath}/css/login/animate.min.css" rel="stylesheet">
+    <link href="${basePath}/css/login/font-awesome.min.css" rel="stylesheet">
+    <style> body { background-image: url(${basePath}/css/images/login/4.jpg);}</style>
 
-    <link rel="icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/library/css/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/library/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
@@ -63,7 +63,7 @@
             success:function (data) {
                 if(data.status == 1){
                     $("#message").text(data.message+",跳转中...");
-                    window.location.href="/library/index";
+                    window.location.href="${basePath}/index.do";
 
                 }else {
                    $("#message").text(data.message) ;
@@ -74,7 +74,7 @@
     function index() {
         $.ajax({
             type:"post",
-            url:"/index.do",
+            url:"${basePath}/index.do",
             data:"",
             dataType:"json",
             success:function (data) {

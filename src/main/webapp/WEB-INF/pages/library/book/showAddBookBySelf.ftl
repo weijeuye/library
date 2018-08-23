@@ -4,18 +4,18 @@
 </head>
 <body>
 <form id="uatoAddBookDialogDataForm">
-    <input id="nodeList" type="hidden" name="nodeList" value=${nodeList} disabled=“true”>
+    <input id="nodeList" type="hidden" name="nodeList" value=${nodeList} disabled="true" />
     <table class="p_table form-inline">
         <tbody>
             <tr>
              
                 <td class="p_label"><i class="cc1">*</i>账号：</td>
-                <td><input type="text" id="isbn" name="isbn" required="true"  class="searchInput"></td>
+                <td><input type="text" id="isbn" name="isbn" required="true"  class="searchInput" placeholder="请手动输入ISBN号"></td>
             </tr>
             <tr>
                 <td class="p_label"><i class="cc1">*</i>数量：</td>
                 <td>
-                    <input type="text"  id="bookNum" name="bookNum" errorele="searchValidate" >
+                    <input type="text"  id="bookNum" name="bookNum" errorele="searchValidate" 	digits="true"  required="true">
                 </td>
 
 
@@ -23,13 +23,13 @@
             <tr>
                 <td class="p_label"><i class="cc1">*</i>价格：</td>
                 <td>
-                    <input type="text"  id="bookPrice" name="bookPrice" errorele="searchValidate" required="true" >
+                    <input type="text"  id="bookPrice" name="bookPrice" errorele="searchValidate" required="true" number="true">
                 </td>
             </tr>
             <tr>
                 <td class="p_label"><i class="cc1">*</i>图书分类：</td>
                 <td>
-                    <label><input type="text" class="w320 form-control" id="bookTypeName" name="bookTypeName" disabled value=""></label>
+                    <label><input type="text" class="w320 form-control" id="bookTypeName" name="bookTypeName" disabled="true" value="" required="true"></label>
                     <input id="bookTypeId" name="bookTypeId" type="hidden" class="input-text" type="text" />
                     <a href="javascript:" class="sellectBookTypeButton mr10" data-id="1" disabled>[选择图书分类]</a>
                     <a href="javascript:void(0);" class=" resetBookTypeButton" data-id="1">重置</a>
@@ -54,21 +54,21 @@
             </tr>
             <tr>
 
-                <td class="p_label">出版时间：</td>
+                <td class="p_label"><i class="cc1">*</i>出版时间：</td>
                 <td>
                 <#--&lt;#&ndash; ${(user.birthday?string("yyyy-MM-dd"))!''}&ndash;&gt;-->
-                    <input type="text" id="bookPubTime" name="bookPubTime" errorele="searchValidate" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+                    <input type="text" id="bookPubTime" name="bookPubTime" errorele="searchValidate" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required="true"  />
                 </td>
             </tr>
             <tr>
-                <td class="p_label"><i class="cc1">*</i>出版社：</td>
+                <td class="p_label">出版社：</td>
                 <td>
                     <input type="text"  id="bookPub" name="bookPub" errorele="searchValidate" required="true" style="width:400px; height:25px;">
                 </td>
             </tr>
 
             <tr>
-                <td class="p_label"><i class="cc1">*</i>图片链接：</td>
+                <td class="p_label">图片链接：</td>
                 <td>
                     <input type="text"  id="bookImg" name="bookImg" errorele="searchValidate" style="width:300px; height:40px;">
                     <img  id="imgSrc" src="" style="width: 100px; height:40px; display: none">
@@ -86,10 +86,10 @@
     <input type="hidden" id="cancelFlag" name="cancelFlag" value="N" disabled=“true”/>
 
 </form>
-<button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="testButton">测试</button>
+<#--<button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="testButton">测试</button>-->
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 
-<script type="text/javascript" src="${basePath}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"></script>
 <#--<script type="text/javascript" src="/library/bootstrap/js/jquery-1.7.2.min.js"> </script>-->
 <script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
 <script type="text/javascript" src="${basePath}/js/ztree/jquery.ztree.core.js"></script>
@@ -101,7 +101,7 @@
 <script>
 
 
-    $("#isbn").startListen({
+   /* $("#isbn").startListen({
         barcodeLen : 13,
         letter : false,
         number : true,
@@ -109,7 +109,7 @@
             $("#isbn").val(code);
             findIsbnInfo(code);
         }
-    });
+    });*/
     $("#testButton").on("click",function () {
         var code=9787121232930;
         $("#isbn").val(code);

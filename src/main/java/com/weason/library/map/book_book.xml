@@ -149,6 +149,9 @@
         <if test="bookState !=null and bookState !='' ">
             bu.book_state =#{bookState,jdbcType=VARCHAR},
         </if>
+        <if test="bookNum !=null and bookNum !='' ">
+            bu.book_num =#{bookNum,jdbcType=INTEGER}
+        </if>
       bu.update_date_time = sysdate() WHERE bu.book_id=#{bookId,jdbcType=INTEGER}
     </update>
     <delete id="deleteBookById" parameterType="java.lang.Long">
@@ -162,6 +165,7 @@
         book_pub,
         book_pub_time,
         book_num,
+        book_left_num,
         book_state,
         book_language,
         book_introduction,
@@ -177,6 +181,7 @@
             #{bookPub,jdbcType=VARCHAR},
             #{bookPubTime,jdbcType=VARCHAR},
             #{bookNum,jdbcType=INTEGER},
+            #{bookLeftNum,jdbcType=INTEGER},
             'Y',
             #{bookLanguage,jdbcType=VARCHAR},
             #{bookIntroduction,jdbcType=VARCHAR},

@@ -1,6 +1,7 @@
 package com.weason.library.interceptor;
 
 import com.weason.library.po.BookUser;
+import com.weason.util.HttpUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,8 +21,9 @@ public class LoginInterceptor  implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println(httpServletRequest.getRequestURI());
         BookUser loginUser=(BookUser) httpServletRequest.getSession().getAttribute("library_user_session");
+        String basePath = HttpUtils.getBasePath(httpServletRequest);
         if(loginUser ==null){
-            httpServletResponse.sendRedirect("/index.do");
+            httpServletResponse.sendRedirect(basePath+"/index.do");
             return  false;
         }
 

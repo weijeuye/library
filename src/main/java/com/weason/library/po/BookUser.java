@@ -35,6 +35,16 @@ public class BookUser implements Serializable {
     private String className;
     private String motherTelephone;
     private String fatherTelephone;
+    //借阅次数
+    public Integer borrowNum;
+
+    public Integer getBorrowNum() {
+        return borrowNum;
+    }
+
+    public void setBorrowNum(Integer borrowNum) {
+        this.borrowNum = borrowNum;
+    }
 
     public String getMotherName() {
         return motherName;

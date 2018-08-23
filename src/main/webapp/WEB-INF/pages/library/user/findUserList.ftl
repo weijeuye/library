@@ -72,8 +72,10 @@
                 <th>母亲电话</th>
                 <th>住址</th>
                 <th>出生日期</th>
-                <th>推荐人</th>
+              <#--  <th>推荐人</th>-->
                 <th>是否有效</th>
+                <th>借阅次数</th>
+                <th>备注</th>
                <#-- <th>图片</th>-->
                 <th>编辑</th>
             </tr>
@@ -97,7 +99,7 @@
                     <td>${bookUser.motherTelephone!''} </td>
                     <td>${bookUser.address!''} </td>
                     <td>${bookUser.birthday!''} </td>
-                    <td>${bookUser.recommendUserId!''} </td>
+                    <#--<td>${bookUser.recommendUserId!''} </td>-->
                     <td>
 						<#if bookUser.isValid == 'Y'>
                             <span style="color:green" class="cancelProp">有效</span>
@@ -105,6 +107,12 @@
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>
+                    <td>
+                        ${bookUser.borrowNum!'无'}
+                    </td>
+                    <td>
+                       ${bookUser.memo!'无'}
+                    </td>
                     <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
