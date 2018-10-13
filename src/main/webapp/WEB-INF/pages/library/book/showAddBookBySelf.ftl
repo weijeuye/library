@@ -154,7 +154,8 @@
         });
     }
         //渲染新增书籍页面
-        function drawHtml() {
+        function drawHtml(book) {
+        debugger;
             var $dialogHtml=$("#uatoAddBookDialogDataForm");
             $dialogHtml.find("#bookName").val(book.bookName);
             $dialogHtml.find("#bookAuthor").val(book.bookAuthor);

@@ -414,7 +414,7 @@ public class BookAction extends BaseAction{
      *
      * @return
      */
-    private static String listToString(List<String> list) {
+    public  String listToString(List<String> list) {
         String str = list.toString();
         str = str.replace("\"", "");
         str = str.replace("[", "");
