@@ -69,7 +69,7 @@ $("#saveButton").on("click", function() {
         data : $("#dataForm").serialize(),
         success : function(result) {
             if (result.code == "success") {
-                alert(result.message);
+                $.alert(result.message);
                 window.location.href= "${basePath}"+"/loginout.do";
             } else {
                 $.alert(result.message);

@@ -133,7 +133,7 @@
             data : $("#borrowBookForm").serialize(),
             success : function(result) {
                 if (result.code == "success") {
-                    alert(result.message);
+                    $.alert(result.message);
                     updateDialog.close();
                     window.location.reload();
                 } else {
