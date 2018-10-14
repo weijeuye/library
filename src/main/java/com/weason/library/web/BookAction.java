@@ -406,9 +406,20 @@ public class BookAction extends BaseAction{
             book.setBookPub(press);
             book.setBookIntroduction(summary);
             book.setBookImg(image);
+            if(price!=null && !"".equals(price) &&isNumeric(price)){
+                book.setBookPrice(Double.valueOf(price));
+            }
             return book;
     }
 
+    public static boolean isNumeric(String str){
+            for (int i = str.length();--i>=0;){
+                   if (!Character.isDigit(str.charAt(i))){
+                           return false;
+                       }
+               }
+           return true;
+        }
     /**
      * 将List集合返回成字符串形式
      *

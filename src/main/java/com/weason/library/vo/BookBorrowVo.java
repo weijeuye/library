@@ -23,6 +23,16 @@ public class BookBorrowVo implements Serializable{
 	private String bookName;
 	private String isbn;
 	private String userAccount;
+	private Long expDays;
+
+	public Long getExpDays() {
+		return expDays;
+	}
+
+	public void setExpDays(Long expDays) {
+
+		this.expDays = expDays;
+	}
 
 	public String getUserName() {
 		return userName;

@@ -9,10 +9,7 @@ import com.weason.library.service.BookService;
 import com.weason.library.service.BookUserService;
 import com.weason.library.vo.BookBorrowVo;
 import com.weason.library.vo.ZTreeNode;
-import com.weason.util.GsonUtils;
-import com.weason.util.HttpUtils;
-import com.weason.util.Page;
-import com.weason.util.ResultMessage;
+import com.weason.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -61,6 +58,15 @@ public class BookBorrowAction extends BaseAction{
         parameters.put("_end", pageParam.getEndRows());
 
         List<BookBorrowVo> bookBorrowVoArrayList= bookBorrowService.findBookBorrowListByParam(parameters);
+        if(bookBorrowVoArrayList!=null  && bookBorrowVoArrayList.size() > 0){
+
+            for(BookBorrowVo bookBorrowVo:bookBorrowVoArrayList){
+                if(bookBorrowVo.getReturnTime() !=null && DateUtil.inAdvance(bookBorrowVo.getReturnTime(),new Date())){
+                    Long expDays=DateUtil.diffDay(bookBorrowVo.getReturnTime(),new Date());
+                    bookBorrowVo.setExpDays(expDays);
+                }
+            }
+        }
         pageParam.setParam(bookBorrowVoArrayList);
         model.addAttribute("page",pagenum);
         model.addAttribute("pageParam",pageParam);

@@ -74,6 +74,7 @@
                 <th>书籍名称</th>
                 <th>借书日期</th>
                 <th>到期日期</th>
+                <th>过期天数</th>
                 <th>是否归还</th>
                 <th>实际归还日期</th>
                 <th>编辑</th>
@@ -90,9 +91,20 @@
                     <td>${(bookBorrow.returnTime?string("yyyy-MM-dd"))!''} </td>
                     <td>
                         <#if bookBorrow.isReturn == 'Y'>
+                            <span style="color:green" class="cancelProp"> 无</span>
+                        <#else>
+                            <#if bookBorrow.expDays??>
+                                <span style="color:red" class="cancelProp">${bookBorrow.expDays!''}天</span>
+                            <#else>
+                                <span style="color:green" class="cancelProp"> 无</span>
+                            </#if>
+                        </#if>
+                    </td>
+                    <td>
+                        <#if bookBorrow.isReturn == 'Y'>
                             <span style="color:green" class="cancelProp">已归还</span>
                         <#else>
-                            <span style="color:red" class="cancelProp">未归还</span>
+                           未归还</span>
                         </#if>
                     </td>
                     <td>${(bookBorrow.actReturnTime?string("yyyy-MM-dd"))!''} </td>

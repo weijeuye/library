@@ -119,6 +119,12 @@
             $.alert("改书库存为0，请核对后再借阅！");
             return;
         }
+        var returnTime=$("#returnTime").val();
+        var borrowTime=$("#borrowTime").val();
+        if(borrowTime > returnTime){
+            $.alert("还书时间不能早于借书时间！");
+            return;
+        }
         $.ajax({
             url : "${basePath}/bookBorrow/borrowBook.do",
             type : "post",
@@ -152,7 +158,12 @@
             data : {isbn:isbn},
             success : function(book) {
                 if (book) {
-                    drawHtml(book);
+                    if(book.isValid !="Y"){
+                        $.alert("该图书已被设为无效,请仔细检查！");
+                    }else {
+
+                        drawHtml(book);
+                    }
                    /* updateDialog.close();
                     window.location.reload();*/
                 } else {
