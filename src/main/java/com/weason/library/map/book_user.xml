@@ -192,8 +192,8 @@
         </if>
     </update>
     <delete id="deleteBookeUserById" parameterType="java.lang.Long">
-        delete from library.book_user bu where
-        bu.userId=#{userId,jdbc=INTEGER}
+        delete from library.book_user  where
+         userId=#{userId,jdbcType=INTEGER}
     </delete>
     <insert id="addBookUser" parameterType="com.weason.library.po.BookUser">
       insert into library.book_user

@@ -150,9 +150,9 @@
             bu.book_state =#{bookState,jdbcType=VARCHAR},
         </if>
         <if test="bookNum !=null and bookNum !='' ">
-            bu.book_num =#{bookNum,jdbcType=INTEGER}
+            bu.book_num =#{bookNum,jdbcType=INTEGER},
         </if>
-      bu.update_date_time = sysdate() WHERE bu.book_id=#{bookId,jdbcType=INTEGER}
+            bu.update_date_time = sysdate() WHERE bu.book_id=#{bookId,jdbcType=INTEGER}
     </update>
     <delete id="deleteBookById" parameterType="java.lang.Long">
         delete from library.book_book bu where bu.book_id=#{bookId,jdbc=INTEGER}
