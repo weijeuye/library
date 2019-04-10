@@ -17,4 +17,5 @@ public interface BookBorrowService {
     public List<BookBorrowVo> findBookBorrowListByParam(Map<String,Object> param);
     public  Integer findBookBorrowCountByParam(Map<String,Object> param);
     public BookBorrow findBookBorrowParam(Map<String,Object> param);
+    public  Integer deleteBookBorrow(Map<String,Object> param);
 }

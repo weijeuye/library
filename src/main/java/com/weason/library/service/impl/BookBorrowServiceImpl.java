@@ -42,4 +42,9 @@ public class BookBorrowServiceImpl implements BookBorrowService {
     public BookBorrow findBookBorrowParam(Map<String, Object> param) {
         return bookBorrowDao.findBookBorrowParam(param);
     }
+
+    @Override
+    public Integer deleteBookBorrow(Map<String, Object> param) {
+        return bookBorrowDao.deleteBookBorrow(param);
+    }
 }

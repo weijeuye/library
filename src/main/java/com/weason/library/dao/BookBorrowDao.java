@@ -36,4 +36,7 @@ public class BookBorrowDao extends MyBatisDao {
     public BookBorrow findBookBorrowParam(Map<String, Object> param) {
         return super.get("findBookBorrowParam",param);
     }
+    public  Integer deleteBookBorrow(Map<String,Object> param){
+        return super.delete("deleteBookBorrow",param);
+    }
 }
