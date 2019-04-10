@@ -1,7 +1,9 @@
 package com.weason.library.web;
 
 import com.weason.library.po.BookUser;
+import com.weason.library.service.BookBorrowService;
 import com.weason.library.service.BookUserService;
+import com.weason.library.vo.BookBorrowVo;
 import com.weason.library.vo.UpdatePasswordVo;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
@@ -9,6 +11,7 @@ import com.weason.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,6 +25,9 @@ public class UserAction {
 
     @Autowired
     BookUserService bookUserService;
+
+    @Autowired
+    BookBorrowService bookBorrowService;
 
     @RequestMapping("/findUsers")
     public Object queryReaders(Model model, HttpServletRequest request, HttpServletResponse response,Integer page,BookUser queryParam){
@@ -98,6 +104,12 @@ public class UserAction {
            return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         if(user.getUserId() == 0){
+            Map<String,Object> param=new HashMap<String,Object>();
+            param.put("userAccount",user.getUserAccount());
+            BookUser bookUser = bookUserService.findBookUser(param);
+            if(bookUser !=null){
+                return ResultMessage.EXIST_ACCOUNT_EXCEPTION;
+            }
            int resultcount= bookUserService.addBookUser(user);
             if(resultcount > 0){
                return ResultMessage.ADD_SUCCESS_RESULT;
@@ -161,5 +173,31 @@ public class UserAction {
         bookUserService.updateBookUser(userdb);
 
         return   ResultMessage.UPDATE_PASSWORD_SUCCESS;
+    }
+    @RequestMapping("/deleteUser")
+    @ResponseBody
+    public Object deleteUser(Model model,Long userId,HttpServletRequest request,String userAccount){
+        Map<String,Object> result=new HashMap<String,Object>();
+        if(userId ==null || userAccount==null){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        //先查询该学员是否有未还书籍
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("userAccount",userAccount);
+        param.put("isReturn" ,"N");
+        List<BookBorrowVo> bookBorrowVoList = bookBorrowService.findBookBorrowListByParam(param);
+        if(!CollectionUtils.isEmpty(bookBorrowVoList)){
+            return ResultMessage.HAVE_BORROWBOOKS_EXCEPTION;
+        }
+        param.clear();
+        param.put("userId",userId);
+        int count = bookUserService.deleteBookUser(userId);
+        bookBorrowService.deleteBookBorrow(param);
+        if( count > 0){
+            return ResultMessage.UPDATE_SUCCESS_RESULT;
+        }else {
+            return ResultMessage.UPDATE_FAIL_RESULT;
+        }
+
     }
 }
