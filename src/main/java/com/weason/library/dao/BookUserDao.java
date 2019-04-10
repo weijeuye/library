@@ -30,6 +30,6 @@ public class BookUserDao extends MyBatisDao{
         return super.update("updateBookUserById",bookUser);
     }
     public Integer deleteBookUserById(Long userId){
-        return super.delete("addBookUser",userId);
+        return super.delete("deleteBookeUserById",userId);
     }
 }

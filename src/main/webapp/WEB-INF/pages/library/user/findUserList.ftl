@@ -115,10 +115,11 @@
                     </td>
                     <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
                         <a class="borrowBook" href="javascript:;" data="${bookUser.userId!''}" data2="" >借书</a>
+                        <a class="editDict" href="javascript:;" data="${bookUser.userId!''}" data2="" >编辑</a>
+                        <a class="deleteDict" href="javascript:;" data="${bookUser.userId!''}" data2="${bookUser.userAccount!''}" >删除</a>
 
-						<a href="javascript:;"  class="editFlag" data1="${bookUser.userId!''}" data2="${bookUser.isValid}">${(bookUser.isValid=='Y')?string("设为无效", "设为有效")}</a>
+						<#--<a href="javascript:;"  class="editFlag" data1="${bookUser.userId!''}" data2="${bookUser.isValid}">${(bookUser.isValid=='Y')?string("设为无效", "设为有效")}</a>-->
 
                     </td>
 				</tr>
@@ -169,6 +170,23 @@ $(function(){
     });
 
 
+
+    $("a.deleteDict").on('click',function(){
+        var userId = $(this).attr("data");
+        var userAccount =  $(this).attr("data2");
+        var url = "${basePath}/user/deleteUser.do?userId="+userId+"&userAccount="+userAccount;
+        var   msg = "删除学员同时也会删除该学员的借书记录，是否确认删除？";
+        $.confirm(msg, function () {
+            $.get(url, function(data){
+                if(data && data.code=='success'){
+                    $.alert("删除成功！");
+                    $("#searchForm").submit();
+                }else {
+                    $.alert(data.message);
+                }
+            });
+        });
+    });
 	
 	//设置状态
 	$("a.editFlag").bind("click",function(){

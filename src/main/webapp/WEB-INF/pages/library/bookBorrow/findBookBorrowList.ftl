@@ -40,9 +40,9 @@
                             <option value="Y" <#if queryParam.isReturn == "Y">selected</#if> >已归还</option>
                             <option value="N" <#if queryParam.isReturn == "N">selected</#if> >未归还</option>
 							<#else >
-                                <option value="" selected>不限</option>
+                                <option value="" >不限</option>
                                 <option value="Y"  >已归还</option>
-                                <option value="N" >未归还</option>
+                                <option value="N" selected>未归还</option>
 						</#if>
 	                </select>
                 </td>
