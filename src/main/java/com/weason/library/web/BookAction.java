@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author weilei
@@ -27,7 +29,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/book")
-public class BookAction extends BaseAction{
+public class BookAction extends BaseAction {
     @Autowired
     private BookTypeService bookTypeService;
     @Autowired
@@ -60,12 +62,12 @@ public class BookAction extends BaseAction{
         model.addAttribute("categoryName", bookTypeName);
         model.addAttribute("page", pageParam.getPage().toString());
         String basePath = HttpUtils.getBasePath(req);
-        model.addAttribute("basePath",basePath);
+        model.addAttribute("basePath", basePath);
         return "/pages/library/bookType/findbookTyeList";
     }
 
     @RequestMapping(value = "/showAddBookType")
-    public String showAddBookType(Model model, Long bookTypeId,HttpServletRequest request) throws Exception {
+    public String showAddBookType(Model model, Long bookTypeId, HttpServletRequest request) throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         parameters.put("bookTypeId", bookTypeId);
@@ -80,14 +82,14 @@ public class BookAction extends BaseAction{
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         String basePath = HttpUtils.getBasePath(request);
-        model.addAttribute("basePath",basePath);
+        model.addAttribute("basePath", basePath);
         return "/pages/library/bookType/showAddBookType";
     }
 
     @RequestMapping(value = "/addBookType")
     @ResponseBody
     public Object addBookType(BookType bookType) throws Exception {
-        if (bookType == null || bookType.getBookTypeName()== null) {
+        if (bookType == null || bookType.getBookTypeName() == null) {
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         if (bookType.getBookTypeParentId() == null) {
@@ -171,7 +173,7 @@ public class BookAction extends BaseAction{
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         String basePath = HttpUtils.getBasePath(request);
-        model.addAttribute("basePath",basePath);
+        model.addAttribute("basePath", basePath);
         return "/pages/library/book/showAddBookByAuto";
     }
 
@@ -182,106 +184,109 @@ public class BookAction extends BaseAction{
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         String basePath = HttpUtils.getBasePath(request);
-        model.addAttribute("basePath",basePath);
+        model.addAttribute("basePath", basePath);
         return "/pages/library/book/showAddBookBySelf";
     }
+
     @RequestMapping(value = "/showUpdateBook")
-    public String showUpdateBook(Model model, HttpServletRequest request, HttpServletResponse response,Long bookId) throws Exception {
-        if(bookId==null){
+    public String showUpdateBook(Model model, HttpServletRequest request, HttpServletResponse response, Long bookId) throws Exception {
+        if (bookId == null) {
             return "参数异常，请刷新页面！";
         }
         Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("bookId",bookId);
-        Book book=bookService.findBookByParam(parameters);
-        model.addAttribute("book",book);
+        parameters.put("bookId", bookId);
+        Book book = bookService.findBookByParam(parameters);
+        model.addAttribute("book", book);
         List<ZTreeNode> nodeList = new ArrayList<ZTreeNode>();
         nodeList = findBookTypeNodeList();
         model.addAttribute("nodeList", GsonUtils.toJson(nodeList));
         String basePath = HttpUtils.getBasePath(request);
-        model.addAttribute("basePath",basePath);
+        model.addAttribute("basePath", basePath);
         return "/pages/library/book/showUpdateBook";
     }
 
     @RequestMapping(value = "/saveBook")
     @ResponseBody
-    public Object saveBook(Book book){
-        if(book ==null || StringUtils.isEmpty(book.getIsbn())){
+    public Object saveBook(Book book) {
+        if (book == null || StringUtils.isEmpty(book.getIsbn())) {
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        Map<String,Object> param=new HashMap<String,Object>();
+        Map<String, Object> param = new HashMap<String, Object>();
         //数据库有isbn 则修改数量
-            param.put("isbn",book.getIsbn());
-            Book currentBook =bookService.findBookByParam(param);
-            if(currentBook!=null && currentBook.getBookNum() > 0){
-                param.clear();
-                param.put("bookId",currentBook.getBookId());
-                param.put("bookNum",currentBook.getBookNum()+1);
-                param.put("bookLeftNum",currentBook.getBookLeftNum()+1);
-                Integer updateCount=bookService.updateBookById(param);
-                if(updateCount > 0){
-                   return ResultMessage.ADD_SUCCESS_RESULT;
-                }else {
-                    return ResultMessage.ADD_FAIL_RESULT;
-                }
-            }else{
+        param.put("isbn", book.getIsbn());
+        Book currentBook = bookService.findBookByParam(param);
+        if (currentBook != null && currentBook.getBookNum() > 0) {
+            param.clear();
+            param.put("bookId", currentBook.getBookId());
+            param.put("bookNum", currentBook.getBookNum() + 1);
+            param.put("bookLeftNum", currentBook.getBookLeftNum() + 1);
+            Integer updateCount = bookService.updateBookById(param);
+            if (updateCount > 0) {
+                return ResultMessage.ADD_SUCCESS_RESULT;
+            } else {
+                return ResultMessage.ADD_FAIL_RESULT;
+            }
+        } else {
             //数据库 没有isbn 新增
-                //初始化在库数量等于总量
-             book.setBookLeftNum(book.getBookNum());
-            Integer count=bookService.addBook(book);
-            if(count > 0){
-                return  ResultMessage.ADD_SUCCESS_RESULT;
+            //初始化在库数量等于总量
+            book.setBookLeftNum(book.getBookNum());
+            Integer count = bookService.addBook(book);
+            if (count > 0) {
+                return ResultMessage.ADD_SUCCESS_RESULT;
             }
         }
-       return  ResultMessage.ADD_FAIL_RESULT;
+        return ResultMessage.ADD_FAIL_RESULT;
     }
+
     @RequestMapping(value = "/updateBook")
     @ResponseBody
-    public Object updateBook(Book book){
-        if(book ==null){
+    public Object updateBook(Book book) {
+        if (book == null) {
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        Map<String,Object> param=new HashMap<String,Object>();
+        Map<String, Object> param = new HashMap<String, Object>();
         //数据库有isbn 则修改数量
-        if(!StringUtils.isEmpty(book.getIsbn())){
-            param.put("isbn",book.getIsbn());
-            Book currentBook =bookService.findBookByParam(param);
-            if(currentBook!=null){
+        if (!StringUtils.isEmpty(book.getIsbn())) {
+            param.put("isbn", book.getIsbn());
+            Book currentBook = bookService.findBookByParam(param);
+            if (currentBook != null) {
                 param.clear();
-                param.put("bookId",currentBook.getBookId());
-                param.put("bookNum",currentBook.getBookNum());
-                param.put("bookPrice",currentBook.getBookPrice());
-                param.put("bookTypeId",currentBook.getBookTypeId());
-                param.put("bookName",currentBook.getBookName());
-                param.put("bookAuthor",currentBook.getBookAuthor());
-                param.put("bookPubTime",currentBook.getBookPubTime());
-                param.put("bookPub",currentBook.getBookPub());
-                param.put("bookImg",currentBook.getBookImg());
-                param.put("bookIntroduction",currentBook.getBookIntroduction());
-                Integer updateCount=bookService.updateBookById(param);
-                if(updateCount > 0){
+                param.put("bookId", currentBook.getBookId());
+                param.put("bookNum", currentBook.getBookNum());
+                param.put("bookPrice", currentBook.getBookPrice());
+                param.put("bookTypeId", currentBook.getBookTypeId());
+                param.put("bookName", currentBook.getBookName());
+                param.put("bookAuthor", currentBook.getBookAuthor());
+                param.put("bookPubTime", currentBook.getBookPubTime());
+                param.put("bookPub", currentBook.getBookPub());
+                param.put("bookImg", currentBook.getBookImg());
+                param.put("bookIntroduction", currentBook.getBookIntroduction());
+                Integer updateCount = bookService.updateBookById(param);
+                if (updateCount > 0) {
                     return ResultMessage.UPDATE_SUCCESS_RESULT;
-                }else {
+                } else {
                     return ResultMessage.UPDATE_FAIL_RESULT;
                 }
 
             }
         }
-        return  ResultMessage.UPDATE_FAIL_RESULT;
+        return ResultMessage.UPDATE_FAIL_RESULT;
     }
+
     @RequestMapping(value = "/updateBookState")
     @ResponseBody
-    public Object updateBookState(Long bookId,String isValid ){
-        if(bookId ==null){
+    public Object updateBookState(Long bookId, String isValid) {
+        if (bookId == null) {
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        Map<String,Object> param=new HashMap<String,Object>();
+        Map<String, Object> param = new HashMap<String, Object>();
 
-        param.put("bookId",bookId);
-        param.put("isValid",isValid);
-        Integer updateCount=bookService.updateBookById(param);
-        if(updateCount > 0){
+        param.put("bookId", bookId);
+        param.put("isValid", isValid);
+        Integer updateCount = bookService.updateBookById(param);
+        if (updateCount > 0) {
             return ResultMessage.UPDATE_SUCCESS_RESULT;
-        }else {
+        } else {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
     }
@@ -321,23 +326,25 @@ public class BookAction extends BaseAction{
         map.put("isbn", str);
         return map;
     }
+
     //
     @RequestMapping(value = "/findBookByIsbn")
     @ResponseBody
     public Object findBookByIsbn(Model model, Long isbn) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
-        Book book=null;
+        Book book = null;
         String str = "";
         if (isbn == null) {
             return book;
         }
-        map.put("isbn",isbn);
-        book=bookService.findBookByParam(map);
+        map.put("isbn", isbn);
+        book = bookService.findBookByParam(map);
         return book;
     }
 
     public StringBuffer isbnApi(Long isbn) {
         String path = "https://api.douban.com/v2/book/isbn/:" + isbn;
+        path = "http://isbn.szmesoft.com/isbn/query?isbn=" + isbn;
         StringBuffer sb = new StringBuffer();
         try {
             //创建一个URL对象
@@ -374,58 +381,81 @@ public class BookAction extends BaseAction{
         if (StringUtils.isEmpty(sb)) {
             return null;
         }
-            JSONObject jsonObject = JSONObject.fromObject(sb);
-            //提取所需要的字段
-            String bname = jsonObject.getString("title");
-            String isbn13 = jsonObject.getString("isbn13");
-            String press = jsonObject.getString("publisher");
-            List<String> authors = (List<String>) jsonObject.get("author");
-            String author = this.listToString(authors);
-            String summary = jsonObject.getString("summary");
-            String price=jsonObject.getString("price");
+        JSONObject jsonObject = JSONObject.fromObject(sb);
+        Object errorCode = jsonObject.get("ErrorCode");
+        if (!StringUtils.isEmpty(errorCode)) {
+            return null;
+        }
+        //提取所需要的字段
+        String bname = jsonObject.getString("BookName");
+        String isbn13 = jsonObject.getString("ISBN");
+        String press = jsonObject.getString("Publishing");
+        String author = jsonObject.getString("Author");
+        //String author = this.listToString(authors);
+        // String summary = jsonObject.getString("summary");
+        String id = jsonObject.getString("ID");
+        Object priceO= jsonObject.getString("Price");
+        String price ="";
+        if(!StringUtils.isEmpty(priceO)){
+            price =  priceO.toString().split(" ")[1].toString();
+        }
 
-            if(jsonObject.get("pubdate") !=null ){
-                String dateStr=jsonObject.get("pubdate").toString();
-                Integer num=judgeNum(dateStr);
-                Date publishTime=null;
-                if(num ==1){
-                    publishTime=  DateUtil.toDate(dateStr,"yyyy-MM");
-                }else if(num ==2){
-                    publishTime=  DateUtil.toDate(dateStr,"yyyy-MM-dd");
-                }
-
-                book.setBookPubTime(publishTime);
+       /* if (jsonObject.get("pubdate") != null) {
+            String dateStr = jsonObject.get("pubdate").toString();
+            Integer num = judgeNum(dateStr);
+            Date publishTime = null;
+            if (num == 1) {
+                publishTime = DateUtil.toDate(dateStr, "yyyy-MM");
+            } else if (num == 2) {
+                publishTime = DateUtil.toDate(dateStr, "yyyy-MM-dd");
             }
-            Object imgs = jsonObject.get("images");
-            String image = this.getPic(imgs);
+
+            book.setBookPubTime(publishTime);
+        }*/
+        //Object imgs = jsonObject.get("39E93C4E57481BFC74AAED9EE2FD8053");
+        //String image =imgs.toString();
+        //this.getPic(imgs);
 
 
-            book.setBookAuthor(author);
-            book.setBookName(bname);
-            book.setIsbn(isbn13);
-            book.setBookPub(press);
-            book.setBookIntroduction(summary);
-            book.setBookImg(image);
-            if(price!=null && !"".equals(price) &&isNumeric(price)){
-                book.setBookPrice(Double.valueOf(price));
-            }
-            return book;
+        book.setBookAuthor(author);
+        book.setBookName(bname);
+        book.setIsbn(isbn13);
+        book.setBookPub(press);
+        //book.setBookIntroduction(summary);
+        //book.setBookImg(image);
+        if (!"".equals(price) && isMatch(price)) {
+            book.setBookPrice(Double.valueOf(price));
+        }
+        return book;
     }
 
-    public static boolean isNumeric(String str){
-            for (int i = str.length();--i>=0;){
-                   if (!Character.isDigit(str.charAt(i))){
-                           return false;
-                       }
-               }
-           return true;
+    public static boolean isNumeric(String str) {
+        for (int i = str.length(); --i >= 0; ) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
         }
+        return true;
+    }
+
+    public static boolean isMatch(String original) {
+
+        String regex = "^([1-9]\\d*|0)(\\.\\d*[0-9])?$";
+
+        if (original == null || original.trim().equals("")) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(regex);
+        Matcher isNum = pattern.matcher(original);
+        return isNum.matches();
+    }
+
     /**
      * 将List集合返回成字符串形式
      *
      * @return
      */
-    public  String listToString(List<String> list) {
+    public String listToString(List<String> list) {
         String str = list.toString();
         str = str.replace("\"", "");
         str = str.replace("[", "");
@@ -446,14 +476,15 @@ public class BookAction extends BaseAction{
         return img;
 
     }
-    private Integer judgeNum(String str){
-        Integer num=0;
-        if(str ==null || str ==""){
+
+    private Integer judgeNum(String str) {
+        Integer num = 0;
+        if (str == null || str == "") {
             return num;
         }
-        char[] strArray=str.toCharArray();
-        for(int i=0;i<strArray.length;i++){
-            if('-'==strArray[i]){
+        char[] strArray = str.toCharArray();
+        for (int i = 0; i < strArray.length; i++) {
+            if ('-' == strArray[i]) {
                 num++;
             }
         }
